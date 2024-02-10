@@ -1,0 +1,22 @@
+<invoice>
+    <header>
+        <title>Invoice</title>
+        <date>January 1, 2024</date>
+        <invoice_number>12345</invoice_number>
+    </header>
+    <items>
+        <item>
+            <description>Product A</description>
+            <quantity>2</quantity>
+            <unit_price>10</unit_price>
+            <total>20</total>
+        </item>
+        <item>
+            <description>Product B</description>
+            <quantity>1</quantity>
+            <unit_price>15</unit_price>
+            <total>15</total>
+        </item>
+    </items>
+    <total>35.0</total>
+</invoice>
