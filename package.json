@@ -10,10 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.11.2",
+    "express": "^4.18.2",
     "fast-xml-parser": "^4.3.4",
     "fs-extra": "^11.2.0",
     "handlebars": "^4.7.8",
+    "jsbarcode": "^3.11.6",
+    "jsqr": "^1.4.0",
+    "moment": "^2.30.1",
+    "pngjs": "^7.0.0",
     "puppeteer": "^22.0.0",
+    "qrcode": "^1.5.3",
     "xml2js": "^0.6.2"
   }
 }

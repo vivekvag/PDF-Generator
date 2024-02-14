@@ -5,53 +5,129 @@
 		<title>Invoice</title>
 		<style>
 			body { font-family: Arial, sans-serif; margin: 0; padding: 0;
-			background-color: #f0f0f0; } .invoice { width: 21cm; min-height: 29.7cm;
-			padding: 2cm; margin: 1cm auto; border: 1px solid #d3d3d3;
-			background-color: #fff; } .invoice-header { text-align: center;
-			margin-bottom: 20px; } .invoice-body { margin-bottom: 20px; }
-			.invoice-table { width: 100%; border-collapse: collapse; } .invoice-table
-			th, .invoice-table td { border: 1px solid #dddddd; padding: 10px;
-			text-align: left; } .invoice-total { text-align: right; font-size: 18px;
-			font-weight: bold; } .invoice-footer { text-align: center; }
-			.invoice-footer p { font-size: 12px; color: #666; } .invoice-header h2 {
-			color: #333; font-size: 28px; margin-bottom: 5px; } .invoice-header p {
-			color: #666; font-size: 14px; margin-top: 0; }
+			background-color: #fff; } .page { break-after: page; } .invoice { padding:
+			2rem; } .invoice-header { display: flex; justify-content: space-between;
+			align-items: center; } .invoice-header-left { width: 32%; } .invoice-code
+			{ display: flex; justify-content: space-between; align-items: center; }
+			.invoice-body-1 { display: grid; gap: 2px; background-color: #000;
+			padding: 2px; grid-template-columns: 1fr 1fr; } .invoice-body {
+			background-color: #fff; padding: 20px; } .item1 { grid-column: 1;
+			grid-row: 1 / span 2; } .item4 { grid-column: 1 / span 2; grid-row: 3;
+			text-align: center; } .item4 > p { text-align: justify; }
 		</style>
 	</head>
 	<body>
-		<div class='invoice'>
-			<div class='invoice-header'>
-				<h2>{{invoice.header.title}}</h2>
-				<p>Date: {{invoice.header.date}}</p>
-				<p>Invoice Number: {{invoice.header.invoice_number}}</p>
+		<div class='page'>
+			<div class='invoice'>
+				<div class='invoice-header'>
+					<div class='invoice-header-left'>
+						<h3>Reliance Retail Limited</h3>
+						<p>
+							Shop No. 10,11,12 Wave Mall Bathind Bypass Road, Channai Rama,
+							Jammu and Kashmir, India
+						</p>
+					</div>
+					<div class='invoice-header-right'>
+						<img
+							height='100px'
+							width='100px'
+							src='https://cdn2.hubspot.net/hubfs/53/image8-2.jpg'
+							alt='Reliance Retail Limited'
+						/>
+					</div>
+				</div>
+				<div class='invoice-code'>
+					<h2>SELLER</h2>
+					<h2>PURCHASE ORDER</h2>
+					<img
+						width='180px'
+						height='180px'
+						src='data:image/png;base64,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'
+						alt='Reliance Barcode'
+					/>
+				</div>
+				<div class='invoice-body-1'>
+					<div class='invoice-body item1'>
+						<p>Vendor Code : 32020458</p>
+						<p>PURPLE PANDA FASHIONS LIMITED</p>
+						<p>
+							109-B PLOT N0. 18, RAJENDRA JAIN TO WAZIR PURPLE INDUSTRAIL AREA,
+							WEST DELHI, DELHI
+						</p>
+						<p>Pin Code: 110058, India</p>
+						<p>Email: lalit.sharma@purplepanda.in</p>
+						<p>Pan No: AAGCP7148D</p>
+						<p>Vendor Status: 01 - REGISTERED</p>
+						<p>GSTIN No: 07AAGCCP7148D1ZE</p>
+					</div>
+					<div class='invoice-body item2'>
+						<p>PO NO : 5030258625 Site: TKY0</p>
+						<p>PO Date: 11/12/2023</p>
+					</div>
+					<div class='invoice-body item3'>
+						<p>PO NO : 5030258625 Site: TKY0</p>
+						<p>PO Date: 11/12/2023</p>
+					</div>
+					<div class='invoice-body item4'>
+						<h2>RRL Trends Jammu Canal road</h2>
+						<p>
+							In accepting this PURCHASE ORDER, SELLER agrees to furnish the
+							GOODS specified in full accordance with all conditions set forth
+							herein and / or attachments hereto. All drawings, designs,
+							specifications and other data prepared by OWNER and related
+							thereto arethe property of the OWNER and must be returned to OWNER
+							upon completionby SELLER of the obligations under this PURCHASE
+							ORDER. Theinformation contained herein is not to be released or
+							disclosed for any other use or purpose other than for the
+							execution of this PURCHASE ORDER. This formal PURCHASE ORDER
+							constitutes the entire agreement and only written changes by way
+							of an amendment to this PURCHASE ORDER will be legally binding. It
+							is important that SELLER signs and returns the PURCHASE ORDER copy
+							within three (3) days of receipt. No other form of acceptance will
+							be accepted. Failure to return the acceptance does not diminish
+							the responsibilities as set forth herein, but may result in a
+							delay to any payments that may be due and may be cause for
+							termination of this PURCHASE ORDER.
+						</p>
+					</div>
+				</div>
 			</div>
-			<div class='invoice-body'>
-				<table class='invoice-table'>
-					<thead>
-						<tr>
-							<th>Description</th>
-							<th>Quantity</th>
-							<th>Unit Price</th>
-							<th>Total</th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each invoice.items}}
+		</div>
+		<div class='page'>
+			<div class='invoice'>
+				<div class='invoice-header'>
+					<h2>{{invoice.header.title}}</h2>
+					<p>Date: {{invoice.header.date}}</p>
+					<p>Invoice Number: {{invoice.header.invoice_number}}</p>
+				</div>
+				<div class='invoice-body'>
+					<table class='invoice-table'>
+						<thead>
 							<tr>
-								<td>{{this.description}}</td>
-								<td>{{this.quantity}}</td>
-								<td>${{this.unit_price}}</td>
-								<td>${{this.total}}</td>
+								<th>Description</th>
+								<th>Quantity</th>
+								<th>Unit Price</th>
+								<th>Total</th>
 							</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			</div>
-			<div class='invoice-total'>
-				<p>Total: ${{invoice.total}}</p>
-			</div>
-			<div class='invoice-footer'>
-				<p>Thank you for your business!</p>
+						</thead>
+						<tbody>
+							{{#each invoice.items}}
+								<tr>
+									<td>{{this.description}}</td>
+									<td>{{this.quantity}}</td>
+									<td>${{this.unit_price}}</td>
+									<td>${{this.total}}</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+				<div class='invoice-total'>
+					<p>Total: ${{invoice.total}}</p>
+				</div>
+				<div class='invoice-footer'>
+					<p>Thank you for your business!</p>
+				</div>
 			</div>
 		</div>
 	</body>
