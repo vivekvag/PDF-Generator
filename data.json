@@ -1,332 +1,184 @@
 {
-	"user": {
-		"username": "John Doe",
-		"address": "123 Main Street, City, Country"
-	},
-	"seller": {
-		"vendor_id": "V123",
-		"name": "ABC Company"
-	},
-	"invoice": {
-		"header": {
-			"title": "Invoice",
-			"date": "January 1, 2024",
-			"invoice_number": "12345"
+	"payload": {
+		"po_number": "I6607026736",
+		"po_date": "09.03.2024",
+		"po_qty": 10.0,
+		"total_base_value": 80.0,
+		"gst": {
+			"total_igst_value": 0.0,
+			"total_sgst_value": 9.0,
+			"total_cgst_value": 9.0
 		},
-		"items": [
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
+		"total_order_value": 98.0,
+		"supplier_details": {
+			"code": "None",
+			"name": "Vendor 1",
+			"address": {
+				"address": "123, Sample Street, Sample Area",
+				"address_line1": "123, Sample Street",
+				"address_line2": "Sample Area",
+				"city": "Delhi",
+				"state": "Delhi",
+				"country": "India",
+				"pincode": "110001"
 			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
+			"pan": "None",
+			"gst_no": "12ABCDE3456F7H8",
+			"contact": {
+				"phone": "+1234567890",
+				"email": "johndoe@example.com"
 			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
+			"supplier_status": "POINT OF DISCUSSION",
+			"attention": ""
+		},
+		"site_details": {
+			"code": "ABCDEF1234",
+			"name": "Site 1",
+			"address": {
+				"address": "123, Sample Street, Sample Area",
+				"address_line1": "123, Sample Street",
+				"address_line2": "Sample Area",
+				"city": "Mumbai",
+				"state": "Maharashtra",
+				"country": "India",
+				"pincode": "400001"
 			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
-			},
-			{
-				"description": "Product A",
-				"quantity": 2,
-				"unit_price": 10,
-				"total": 20
-			},
-			{
-				"description": "Product B",
-				"quantity": 1,
-				"unit_price": 15,
-				"total": 15
+			"pan": "None",
+			"gst_no": "None",
+			"contact": {
+				"phone": "+1234567890",
+				"email": "johndoe@example.com"
 			}
-		],
-		"total": 35.0
-	}
+		},
+		"delivery_date": "08.03.2024",
+		"delivery_terms": "",
+		"buyer": {
+			"name": "B7 Lesb",
+			"address": {
+				"address": "456, Sample Street, Sample Area",
+				"address_line1": "456, Sample Street",
+				"address_line2": "Sample Area",
+				"city": "Delhi",
+				"state": "Delhi",
+				"country": "India",
+				"pincode": "110001"
+			},
+			"contact": {
+				"phone": "+1234567890",
+				"email": "johndoe@example.com"
+			}
+		},
+		"po_item": [
+			{
+				"article_no": 441940463005,
+				"hsn_code": 61089210,
+				"ean_no": 8905587630003,
+				"vendor_article_no": "PN5202P99",
+				"vendor_item_no": "",
+				"material_description": "CLOVIA_PANTY_PN5202P99_MULTI, MULTI, L",
+				"quantity": 3.0,
+				"uom": "EA",
+				"mrp": 0,
+				"base_cost": 208.52,
+				"cgst": 0.0,
+				"cgst_amount": 0.0,
+				"sgst": 0.0,
+				"sgst_amount": 0.0,
+				"igst": 5.0,
+				"igst_amount": 31.28,
+				"cess": 0.0,
+				"cess_amount": 0.0,
+				"total_base_value": 625.56
+			},
+			{
+				"article_no": 441940463004,
+				"hsn_code": 61089210,
+				"ean_no": 8905587629991,
+				"vendor_article_no": "PN5202P99",
+				"vendor_item_no": "",
+				"material_description": "CLOVIA_PANTY_PN5202P99_MULTI, MULTI, M",
+				"quantity": 3.0,
+				"uom": "EA",
+				"mrp": 0,
+				"base_cost": 208.52,
+				"cgst": 0.0,
+				"cgst_amount": 0.0,
+				"sgst": 0.0,
+				"sgst_amount": 0.0,
+				"igst": 5.0,
+				"igst_amount": 31.28,
+				"cess": 0.0,
+				"cess_amount": 0.0,
+				"total_base_value": 625.56
+			},
+			{
+				"article_no": 441940463003,
+				"hsn_code": 61089210,
+				"ean_no": 8905587629984,
+				"vendor_article_no": "PN5202P99",
+				"vendor_item_no": "",
+				"material_description": "CLOVIA_PANTY_PN5202P99_MULTI, MULTI, S",
+				"quantity": 3.0,
+				"uom": "EA",
+				"mrp": 0,
+				"base_cost": 208.52,
+				"cgst": 0.0,
+				"cgst_amount": 0.0,
+				"sgst": 0.0,
+				"sgst_amount": 0.0,
+				"igst": 5.0,
+				"igst_amount": 31.28,
+				"cess": 0.0,
+				"cess_amount": 0.0,
+				"total_base_value": 625.56
+			},
+			{
+				"article_no": 441952495001,
+				"hsn_code": 62129090,
+				"ean_no": 8905587633356,
+				"vendor_article_no": "BR5200P18",
+				"vendor_item_no": "",
+				"material_description": "CLOVIA_BRA_BR5200P18_WHITE, WHITE, 42B",
+				"quantity": 1.0,
+				"uom": "EA",
+				"mrp": 0,
+				"base_cost": 194.95,
+				"cgst": 0.0,
+				"cgst_amount": 0.0,
+				"sgst": 0.0,
+				"sgst_amount": 0.0,
+				"igst": 5.0,
+				"igst_amount": 9.75,
+				"cess": 0.0,
+				"cess_amount": 0.0,
+				"total_base_value": 194.95
+			},
+			{
+				"article_no": 441952495002,
+				"hsn_code": 62129090,
+				"ean_no": 8905587633363,
+				"vendor_article_no": "BR5200P18",
+				"vendor_item_no": "",
+				"material_description": "CLOVIA_BRA_BR5200P18_WHITE, WHITE, 42C",
+				"quantity": 1.0,
+				"uom": "EA",
+				"mrp": 0,
+				"base_cost": 194.95,
+				"cgst": 0.0,
+				"cgst_amount": 0.0,
+				"sgst": 0.0,
+				"sgst_amount": 0.0,
+				"igst": 5.0,
+				"igst_amount": 9.75,
+				"cess": 0.0,
+				"cess_amount": 0.0,
+				"total_base_value": 194.95
+			}
+		]
+	},
+	"meta": {
+		"job_type": "test",
+		"action": "generate_po"
+	},
+	"partition_value": "I6607026736"
 }
