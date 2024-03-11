@@ -74,9 +74,16 @@ const generatePDF = async () => {
 		const barcodeMarkup = await generateBarCode({ value: '123456789' });
 
 		// Add the formatted text and barcode to your content
-		const modifiedContent = content + barcodeMarkup;
+		const modifiedContent = content;
 
 		await page.setContent(modifiedContent);
+
+		await page.addStyleTag({
+			content: `
+				body { margin-top: 1cm; }
+				@page:first { margin-top: 0; }
+			`,
+		});
 
 		// Generate PDF for each page
 		await page.pdf({
@@ -89,17 +96,17 @@ const generatePDF = async () => {
 				top: '100px',
 			},
 			headerTemplate: `
-				${styleContent}
-				<div class='invoice-code'>
-					<div style='width:40%; font-size: 10px;'></div>
-					<div style='width:30%; font-size: 10px;'>PURCHASE ORDER</div>
-					<div style='width:30%; font-size: 10px;'>
-						<div style='font-size: 10px;'>Number : ${payloadJSON.po_number}</div>
-						<div style='font-size: 10px;'>Po Date : ${payloadJSON.po_date}</div>
-						<div style='font-size: 10px;'>Page : <span class="pageNumber"></span></div>
-					</div>
-				</div>
-			`,
+                ${styleContent}
+                <div class='invoice-code'>
+                    <div style='width:40%; font-size: 10px;'></div>
+                    <div style='width:30%; font-size: 10px;'>PURCHASE ORDER</div>
+                    <div style='width:30%; font-size: 10px;'>
+                        <div style='font-size: 10px;'>Number : ${payloadJSON.po_number}</div>
+                        <div style='font-size: 10px;'>Po Date : ${payloadJSON.po_date}</div>
+                        <div style='font-size: 10px;'>Page : <span class="pageNumber"></span></div>
+                    </div>
+                </div>
+            `,
 		});
 
 		console.log('PDF generated successfully');
