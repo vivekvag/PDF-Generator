@@ -31,27 +31,41 @@ const styleContent = `
 		`;
 
 function groupBySubtotalQuantity(poItems) {
-	const groupedPayload = [];
-	let currentGroup = null;
-	let grandTotalQuantity = 0;
-
+	const groupedPayload = {};
 	poItems.forEach((item) => {
-		const articleNoPrefix = String(item.article_no).slice(0, 9);
-		if (!currentGroup || currentGroup.prefix !== articleNoPrefix) {
-			// Start a new group
-			currentGroup = {
-				prefix: articleNoPrefix,
-				total_quantity: 0,
+		const groupKey = item.article_no.toString().substring(0, 9); // Get the first 4 characters of article_no
+		const totalQuantity = parseFloat(item.quantity); // Convert quantity to a floating-point number
+		if (!groupedPayload[groupKey]) {
+			groupedPayload[groupKey] = {
+				total_quantity: 0, // Initialize total quantity to 0
 				items: [],
 			};
-			groupedPayload.push(currentGroup);
 		}
-		currentGroup.items.push(item);
-		currentGroup.total_quantity += item.quantity;
-		grandTotalQuantity += item.quantity; // Add quantity to grand total
+		groupedPayload[groupKey].items.push(item);
+		groupedPayload[groupKey].total_quantity += totalQuantity; // Add quantity to total quantity
 	});
 
-	return { po_item: groupedPayload, grand_total_quantity: grandTotalQuantity };
+	// Format total_quantity to have up to 3 decimal places and convert to string
+	Object.keys(groupedPayload).forEach((key) => {
+		groupedPayload[key].total_quantity = parseFloat(
+			groupedPayload[key].total_quantity.toFixed(3)
+		).toFixed(3);
+	});
+
+	// Sort items within each group based on the last number of the material description
+	Object.keys(groupedPayload).forEach((key) => {
+		groupedPayload[key].items.sort((a, b) => {
+			const getLastNumber = (str) => parseInt(str.match(/\d+$/)[0]); // Extract last number from string
+			return (
+				getLastNumber(a.material_description) -
+				getLastNumber(b.material_description)
+			);
+		});
+	});
+
+	const result = Object.keys(groupedPayload).map((key) => groupedPayload[key]);
+
+	return { po_item: result };
 }
 
 // Function to generate PDF
@@ -63,10 +77,9 @@ const generatePDF = async () => {
 		});
 		const page = await browser.newPage();
 
-		const payloadJSON = data?.payload;
+		const payloadJSON = data;
 		const groupedPayload = groupBySubtotalQuantity(payloadJSON.po_item);
 		payloadJSON.po_item = groupedPayload.po_item;
-		payloadJSON.grand_total_quantity = groupedPayload.grand_total_quantity;
 
 		// Compile template with user and seller information
 		const content = await compile('index', payloadJSON);
@@ -99,14 +112,20 @@ const generatePDF = async () => {
                 ${styleContent}
                 <div class='invoice-code'>
                     <div style='width:40%; font-size: 10px;'></div>
-                    <div style='width:30%; font-size: 10px;'>PURCHASE ORDER</div>
-                    <div style='width:30%; font-size: 10px;'>
-                        <div style='font-size: 10px;'>Number : ${payloadJSON.po_number}</div>
-                        <div style='font-size: 10px;'>Po Date : ${payloadJSON.po_date}</div>
-                        <div style='font-size: 10px;'>Page : <span class="pageNumber"></span></div>
+                    <div style='width:30%; font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>PURCHASE ORDER</div>
+                    <div style='width:30%; font-size: 10px; line-height:1.2;'>
+                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Number<span style="font-weight: normal;"> : ${payloadJSON.po_number}</span></div>
+                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Po Date<span style="font-weight: normal;"> : ${payloadJSON.po_date}</span></div>
+                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Page No <span style="font-weight: normal;">:</span> <span style="font-weight: normal;" class="pageNumber"> </span></div>
                     </div>
                 </div>
             `,
+			footerTemplate: `
+				${styleContent}
+				<div class='invoice-code'>
+				<div style='width:40%; font-size: 12px;'></div>
+				</div>
+			`,
 		});
 
 		console.log('PDF generated successfully');
