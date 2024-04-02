@@ -18,17 +18,17 @@ const compile = async function (template, data) {
 };
 
 const styleContent = `
-            <style>
-                .invoice-code {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    width: 100%;
-                    min-height: 100px;
-                    font-size: 10px;
-                }
-            </style>
-        `;
+			<style>
+				.invoice-code {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					width: 100%;
+					min-height: 100px;
+					font-size: 10px;
+				}
+			</style>
+		`;
 
 function groupBySubtotalQuantity(poItems) {
 	const groupedPayload = {};
@@ -93,12 +93,10 @@ const generatePDF = async () => {
 
 		await page.addStyleTag({
 			content: `
-                body { margin-top: 1cm; }
-                @page:first { margin-top: 0; }
-            `,
+				body { margin-top: 1cm; }
+				@page:first { margin-top: 0; }
+			`,
 		});
-
-		let currentPage = 1; // Initialize the current page count
 
 		// Generate PDF for each page
 		await page.pdf({
@@ -118,21 +116,16 @@ const generatePDF = async () => {
                     <div style='width:30%; font-size: 10px; line-height:1.2;'>
                         <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Number<span style="font-weight: normal;"> : ${payloadJSON.po_number}</span></div>
                         <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Po Date<span style="font-weight: normal;"> : ${payloadJSON.po_date}</span></div>
-                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Page No <span style="font-weight: normal;">:</span> <span style="font-weight: normal;">${currentPage}</span></div>
+                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Page No <span style="font-weight: normal;">:</span> <span style="font-weight: normal;" class="pageNumber"> </span></div>
                     </div>
                 </div>
             `,
 			footerTemplate: `
-                ${styleContent}
-                <div class='invoice-code'>
-                <div style='width:40%; font-size: 12px;'></div>
-                </div>
-            `,
-			// Event handler to update current page count
-			pageRanges: '1', // First page only
-			pageFunction: function () {
-				currentPage++; // Increment the current page count for each new page
-			},
+				${styleContent}
+				<div class='invoice-code'>
+				<div style='width:40%; font-size: 12px;'></div>
+				</div>
+			`,
 		});
 
 		console.log('PDF generated successfully');
