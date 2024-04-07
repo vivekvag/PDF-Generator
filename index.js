@@ -5,6 +5,7 @@ const path = require('path');
 const data = require('./data.json');
 const ThermalPrinterHelper = require('./ThermalPrinterHelper');
 const { generateQrCode, generateBarCode } = require('./generator');
+const pdfMerge = require('easy-pdf-merge');
 
 hbs.registerHelper('inc', function (value, options) {
 	return parseInt(value) + 1;
@@ -76,6 +77,7 @@ const generatePDF = async () => {
 			devtools: true,
 		});
 		const page = await browser.newPage();
+		const page_2 = await browser.newPage();
 
 		const payloadJSON = data;
 		const groupedPayload = groupBySubtotalQuantity(payloadJSON.po_item);
@@ -83,13 +85,13 @@ const generatePDF = async () => {
 
 		// Compile template with user and seller information
 		const content = await compile('index', payloadJSON);
-
-		const barcodeMarkup = await generateBarCode({ value: '123456789' });
+		const content_2 = await compile('second', payloadJSON);
 
 		// Add the formatted text and barcode to your content
 		const modifiedContent = content;
 
 		await page.setContent(modifiedContent);
+		await page_2.setContent(content_2);
 
 		await page.addStyleTag({
 			content: `
@@ -97,10 +99,20 @@ const generatePDF = async () => {
 				@page:first { margin-top: 0; }
 			`,
 		});
-
 		// Generate PDF for each page
 		await page.pdf({
 			path: 'output.pdf',
+			format: 'A4',
+			printBackground: true,
+			preferCSSPageSize: true,
+			displayHeaderFooter: true,
+			margin: {
+				top: '100px',
+			},
+		});
+		// Generate PDF for each page
+		await page_2.pdf({
+			path: 'output_2.pdf',
 			format: 'A4',
 			printBackground: true,
 			preferCSSPageSize: true,
@@ -127,6 +139,15 @@ const generatePDF = async () => {
 				</div>
 			`,
 		});
+
+		pdfMerge(
+			['./output.pdf', './output_2.pdf'],
+			path.join(__dirname, `./mergedFile.pdf`),
+			async (err) => {
+				if (err) return console.log(err);
+				console.log('Successfully merged!');
+			}
+		);
 
 		console.log('PDF generated successfully');
 		// await browser.close();

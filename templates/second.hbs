@@ -1,0 +1,1012 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Invoice</title>
+    <style>
+
+    /* Landscape orientation for the rest of the pages */
+    @page {
+      size: A4 landscape;
+      margin-bottom: 2rem;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      font-family: Helvetica, sans-serif;
+    }
+    body {
+      font-size: 9pt;
+      font-family: Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+
+    .page {
+      break-after: page;
+    }
+    .invoice {
+      padding: 0 1rem 1rem;
+    }
+
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .invoice-header-left {
+      width: 50%;
+    }
+    .invoice-code {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      line-height: 1.2;
+    }
+    .invoice-body-1 {
+      display: grid;
+      gap: 1px;
+      background-color: #000;
+      padding: 1px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .invoice-body {
+      background-color: #fff;
+      padding: 0 1rem 1rem;
+    }
+    .item1 {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+    .item4 {
+      grid-column: 1 / span 2;
+      grid-row: 3;
+      text-align: center;
+    }
+    .item8 {
+      grid-column: 1 / span 2;
+    }
+    .buyer-details {
+      display: flex;
+      flex-direction: column;
+      width: 33.35%;
+    }
+    .invoice-total {
+      margin-top: 1rem;
+    }
+    .invoice-footer {
+      margin-top: 1rem;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    .h2-prev {
+      font-size: 11pt;
+      font-weight: 700;
+    }
+    .margin-bottom {
+      margin-bottom: 16px;
+    }
+
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .invoice-table th,
+    .invoice-table td {
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: left;
+    }
+    .invoice-table thead,
+    tbody {
+      font-size: 12px;
+    }
+
+    .invoice-table th, td {
+      vertical-align: top !important;
+    }
+
+    .item {
+      page-break-inside: avoid;
+    }
+   {{!-- .invoice-header-right{
+      display: flex;
+      width: 25%;
+      align-items: center;
+      justify-content: center;
+   } --}}
+
+     h2 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 11pt; }
+         .s1 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
+         h1 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }
+         .s2 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
+         .s3 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
+         .s4 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }
+         .s5 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         .s6 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; }
+         .s7 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 8pt; }
+         .s8 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         .s9 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 11pt; }
+         .s10 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt; }
+         .s11 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+         .s12 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 8pt; }
+         .s13 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 8pt; }
+         .a { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 8pt; }
+         h4 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; }
+         .p, p { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; margin:0pt; }
+         h3 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt; }
+         .s14 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+         .s15 { color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; }
+         li {display: block; }
+         #l1 {padding-left: 0pt;counter-reset: c1 1; }
+         #l1> li>*:first-child:before {counter-increment: c1; content: counter(c1, decimal)" "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l1> li:first-child>*:first-child:before {counter-increment: c1 0;  }
+         #l2 {padding-left: 0pt;counter-reset: c2 1; }
+         #l2> li>*:first-child:before {counter-increment: c2; content: counter(c1, decimal)"."counter(c2, decimal)" "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l2> li:first-child>*:first-child:before {counter-increment: c2 0;  }
+         #l3 {padding-left: 0pt;counter-reset: d1 1; }
+         #l3> li>*:first-child:before {counter-increment: d1; content: "("counter(d1, lower-latin)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l3> li:first-child>*:first-child:before {counter-increment: d1 0;  }
+         #l4 {padding-left: 0pt;counter-reset: e1 2; }
+         #l4> li>*:first-child:before {counter-increment: e1; content: "("counter(e1, lower-roman)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l4> li:first-child>*:first-child:before {counter-increment: e1 0;  }
+         #l5 {padding-left: 0pt;counter-reset: e2 1; }
+         #l5> li>*:first-child:before {counter-increment: e2; content: "("counter(e2, upper-latin)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l5> li:first-child>*:first-child:before {counter-increment: e2 0;  }
+         #l6 {padding-left: 0pt;counter-reset: e3 1; }
+         #l6> li>*:first-child:before {counter-increment: e3; content: "("counter(e3, lower-roman)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l6> li:first-child>*:first-child:before {counter-increment: e3 0;  }
+         #l7 {padding-left: 0pt;counter-reset: e1 2; }
+         #l7> li>*:first-child:before {counter-increment: e1; content: "("counter(e1, lower-roman)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l7> li:first-child>*:first-child:before {counter-increment: e1 0;  }
+         #l8 {padding-left: 0pt;counter-reset: e2 1; }
+         #l8> li>*:first-child:before {counter-increment: e2; content: "("counter(e2, upper-latin)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l8> li:first-child>*:first-child:before {counter-increment: e2 0;  }
+         #l9 {padding-left: 0pt;counter-reset: e3 2; }
+         #l9> li>*:first-child:before {counter-increment: e3; content: "("counter(e3, lower-roman)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l9> li:first-child>*:first-child:before {counter-increment: e3 0;  }
+         li {display: block; }
+         #l10 {padding-left: 0pt;counter-reset: f1 2; }
+         #l10> li>*:first-child:before {counter-increment: f1; content: counter(f1, decimal)". "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l10> li:first-child>*:first-child:before {counter-increment: f1 0;  }
+         #l11 {padding-left: 0pt;counter-reset: f2 1; }
+         #l11> li>*:first-child:before {counter-increment: f2; content: counter(f1, decimal)"."counter(f2, decimal)" "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l11> li:first-child>*:first-child:before {counter-increment: f2 0;  }
+         #l12 {padding-left: 0pt;counter-reset: g1 1; }
+         #l12> li>*:first-child:before {counter-increment: g1; content: "("counter(g1, lower-latin)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l12> li:first-child>*:first-child:before {counter-increment: g1 0;  }
+         #l13 {padding-left: 0pt;counter-reset: f2 1; }
+         #l13> li>*:first-child:before {counter-increment: f2; content: counter(f1, decimal)"."counter(f2, decimal)" "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l13> li:first-child>*:first-child:before {counter-increment: f2 0;  }
+         #l14 {padding-left: 0pt;counter-reset: f2 1; }
+         #l14> li>*:first-child:before {counter-increment: f2; content: counter(f1, decimal)"."counter(f2, decimal)" "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l14> li:first-child>*:first-child:before {counter-increment: f2 0;  }
+         #l15 {padding-left: 0pt;counter-reset: f2 1; }
+         #l15> li>*:first-child:before {counter-increment: f2; content: counter(f1, decimal)"."counter(f2, decimal)" "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l15> li:first-child>*:first-child:before {counter-increment: f2 0;  }
+         #l16 {padding-left: 0pt;counter-reset: f2 1; }
+         #l16> li>*:first-child:before {counter-increment: f2; content: counter(f1, decimal)"."counter(f2, decimal)" "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l16> li:first-child>*:first-child:before {counter-increment: f2 0;  }
+         li {display: block; }
+         #l17 {padding-left: 0pt;counter-reset: h1 1; }
+         #l17> li>*:first-child:before {counter-increment: h1; content: counter(h1, decimal)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l17> li:first-child>*:first-child:before {counter-increment: h1 0;  }
+         #l18 {padding-left: 0pt;counter-reset: h2 1; }
+         #l18> li>*:first-child:before {counter-increment: h2; content: counter(h2, lower-latin)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l18> li:first-child>*:first-child:before {counter-increment: h2 0;  }
+         #l19 {padding-left: 0pt;counter-reset: h2 1; }
+         #l19> li>*:first-child:before {counter-increment: h2; content: counter(h2, lower-latin)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l19> li:first-child>*:first-child:before {counter-increment: h2 0;  }
+         li {display: block; }
+         #l20 {padding-left: 0pt;counter-reset: i1 1; }
+         #l20> li>*:first-child:before {counter-increment: i1; content: "("counter(i1, lower-roman)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l20> li:first-child>*:first-child:before {counter-increment: i1 0;  }
+         #l21 {padding-left: 0pt;counter-reset: i2 1; }
+         #l21> li>*:first-child:before {counter-increment: i2; content: "("counter(i2, lower-latin)") "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l21> li:first-child>*:first-child:before {counter-increment: i2 0;  }
+         li {display: block; }
+         #l22 {padding-left: 0pt;counter-reset: j1 1; }
+         #l22> li>*:first-child:before {counter-increment: j1; content: counter(j1, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+         #l22> li:first-child>*:first-child:before {counter-increment: j1 0;  }
+         #l23 {padding-left: 0pt;counter-reset: j2 1; }
+         #l23> li>*:first-child:before {counter-increment: j2; content: counter(j2, lower-latin)". "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l23> li:first-child>*:first-child:before {counter-increment: j2 0;  }
+         #l24 {padding-left: 0pt;counter-reset: j3 1; }
+         #l24> li>*:first-child:before {counter-increment: j3; content: counter(j3, lower-roman)". "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l24> li:first-child>*:first-child:before {counter-increment: j3 0;  }
+         #l25 {padding-left: 0pt;counter-reset: j2 1; }
+         #l25> li>*:first-child:before {counter-increment: j2; content: counter(j2, lower-latin)". "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l25> li:first-child>*:first-child:before {counter-increment: j2 0;  }
+         #l26 {padding-left: 0pt;counter-reset: j2 1; }
+         #l26> li>*:first-child:before {counter-increment: j2; content: counter(j2, lower-latin)". "; color: black; font-family:Helvetica, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 9pt; }
+         #l26> li:first-child>*:first-child:before {counter-increment: j2 0;  }
+         table, tbody {vertical-align: top; overflow: visible; }
+    </style>
+    <script>
+					// Override the function responsible for displaying page numbers
+					(function() {
+						// Save a reference to the original function
+						var originalGetFormattedTimestamp = window.PerformancePanel.prototype.getFormattedTimestamp;
+					
+						// Override the function to start page numbering from 0
+						window.PerformancePanel.prototype.getFormattedTimestamp = function(timestamp) {
+							// Call the original function and subtract 1 from the page number
+							return originalGetFormattedTimestamp.call(this, timestamp - 1);
+						};
+					})();
+    </script>
+  </head>
+  <body>
+    <div class='page'>
+      <div class='invoice'>
+        <div class='invoice-body'>
+          <table class='invoice-table'>
+            <thead>
+              <tr>
+                <th>Sr.No.</th>
+                <th>
+                  <div>Article No:</div>
+                  <div>HSN Code: </div>
+                </th>
+                <th>
+                  <div>EAN No: </div>
+                  <div>Vendor Article No: </div>
+                  <div>Vendor Item No: </div>
+                </th>
+                <th>
+                  <div>Material Description: </div>
+                  <div>Delivery Date: </div>
+                  <div>Site: </div>
+                </th>
+                <th style="text-align: center;">Quantity</th>
+                <th style="text-align: center;">UOM</th>
+                <th style="text-align: center;">MRP</th>
+                <th style="text-align: center;">Base Cost</th>
+                {{#if gst.is_igst}}
+                <th style="text-align: center;">
+                  <div>IGST (%)</div>
+                  <div>CESS (%)</div>
+                </th>
+                <th style="text-align: center;">
+                  <div>IGST </div>
+                  <div>CESS </div>
+                </th>
+                {{else}}
+                <th style="text-align: center;">
+                  <div>CGST (%)</div>
+                  <div>SGST (%)</div>
+                  <div>CESS (%)</div>
+                </th>
+                <th style="text-align: center;">
+                  <div>CGST </div>
+                  <div>SGST </div>
+                  <div>CESS </div>
+                </th>
+                {{/if}}
+                <th>Total Base Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each po_item}}
+                {{#each this.items}}
+                  <tr class="item">
+                    <td>{{this.sr_no}}</td>
+                    <td>{{this.article_no}}<br />{{this.hsn_code}}</td>
+                    <td>{{this.ean_no}}<br />{{this.vendor_article_no}}<br
+                      />{{this.vendor_item_no}}</td>
+                    <td>{{this.material_description}}<br />{{../../delivery_date}}<br
+                      />{{../../site_details.code}}</td>
+                    <td style="text-align: right;">{{this.quantity}}</td>
+                    <td style="text-align: center;">{{this.uom}}</td>
+                    <td style="text-align: right;">{{this.mrp}}</td>
+                    <td style="text-align: center;">{{this.base_cost}}</td>
+                   {{#if ../../gst.is_igst}}
+                    <td style="text-align: center;">{{igst}}<br />{{cess}}</td>
+                    <td style="text-align: center;">{{igst_amount}}<br />{{cess_amount}}</td>
+                  {{else}}
+                    <td style="text-align: center;">{{cgst}}<br/>{{sgst}}<br/>{{cess}}</td>
+                    <td style="text-align: center;">{{cgst_amount}}<br/>{{sgst_amount}}<br/>{{cess_amount}}</td>
+                  {{/if}}
+                    <td style="text-align: center;">{{this.total_base_value}}</td>
+                  </tr>
+                {{/each}}
+                <tr>
+                  <td class="bold" style="text-align: center;" colspan='4'>Sub Total of Qty</td>
+                  <td class="bold" style="text-align: right;">{{this.total_quantity}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              {{/each}}
+              <tr>
+                <td class="bold" style="text-align: center;" colspan='4'>Grand Total of Qty</td>
+                <td class="bold" style="text-align: right;">{{po_qty}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan='4'></td>
+                <td class="bold" colspan='5'>TOTAL BASIC VALUE</td>
+                <td class="bold" style="text-align: center;">INR</td>
+                <td class="bold" style="text-align: right;">{{total_base_value}}</td>
+              </tr>
+
+              {{#if gst.is_igst}}
+                <tr>
+                  <td colspan='4'></td>
+                  <td class="bold" colspan='5'>TOTAL IGST</td>
+                  <td class="bold" style="text-align: center;">INR</td>
+                  <td class="bold" style="text-align: right;">{{gst.total_igst_value}}</td>
+                </tr>
+              {{else}}
+                <tr>
+                  <td colspan='4'></td>
+                  <td class="bold" colspan='5'>TOTAL CGST</td>
+                  <td class="bold" style="text-align: center;">INR</td>
+                  <td class="bold" style="text-align: right;">{{gst.total_cgst_value}}</td>
+                </tr>
+                <tr>
+                  <td colspan='4'></td>
+                  <td class="bold"  colspan='5'>TOTAL SGST</td>
+                  <td class="bold" style="text-align: center;">INR</td>
+                  <td class="bold" style="text-align: right;">{{gst.total_sgst_value}}</td>
+                </tr>
+              {{/if}}
+
+              <tr>
+                <td colspan='4'></td>
+                <td class="bold" colspan='5'>TOTAL Order Value: </td>
+                <td class="bold" style="text-align: center;">INR</td>
+                <td class="bold" style="text-align: right;">{{total_order_value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {{! Rest of the content }}
+        <div class='invoice-static-body'>
+          <h4 style="padding-top: 4pt;padding-left: 14pt;text-indent: 0pt;text-align: justify;">Note(S) :</h4>
+      <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 14pt;text-indent: 0pt;line-height: 111%;text-align: justify;">» It is essential that the seller shall mention Item No &amp; Item code along with corresponding Material Description and P.O. No. as mentioned above, in the Delivery challan(On-Shore Order) / Packing List (Off-shore Order) and invoice for ease of material Inwarding and Bill Processing.It is also essential that the Seller attaches a Tag /Sticker with each item indicating item Code &amp; PO No. Failure to do so may be the grounds for the rejection(s) or delay in release of payment(s).</p>
+      <h4 style="padding-top: 4pt;padding-left: 14pt;text-indent: 0pt;text-align: justify;">» <span class="p">Suppliers need to call the destination DC/Store atleast 24 hrs in advance to schedule the delivery time for goods.Vehicles without prior appointment could be subject to delay.</span></h4>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <h3 style="padding-left: 14pt;text-indent: 0pt;text-align: justify;">GSTIN Number Details:</h3>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <p class="s14" style="padding-left: 14pt;text-indent: 0pt;text-align: left;">GSTIN No : {{site_details.gst_no}}<br/> Pan No  : {{site_details.pan}}</p>
+      <h4 style="padding-left: 14pt;text-indent: 0pt;line-height: 111%;text-align: justify;">» <span class="p">As per recent amendment(s) in the Income-Tax Rules (&quot;Rules&quot;) made vide the Income-tax (22nd Amendment) Rules, 2015, effective 1 January 2016. Rule 114B of the Rules as substituted, mentions transactions in relation to which Permanent Account Number (PAN) is to be quoted on all documents and includes sale or purchase of goods or services of any nature for an amount exceeding two lakh rupees per transaction (Sl. No 18 of the Table in Rule 114B).</span></h4>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <h4 style="padding-left: 14pt;text-indent: 0pt;line-height: 111%;text-align: justify;">» <span class="p">Rule 114C (2) of the Rules as substituted reads as follows: &quot;Any person, being a person raising bills referred to at Sl. No 5 or 6 or 18 of rule 114B, who, in relation to a transaction specified in the said Sl. No., has issued any document shall ensure after verification that permanent account number has been correctly furnished and the same shall be mentioned in such document, or as the case may be, a declaration in Form 60 has been duly furnished with complete particulars&quot;. In case PAN is applied for and / or not available, Form 60 is to be duly filled and signed / verified and submitted with identity and address proof (KYC documents) as per the page 3 of form 60.</span></h4>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <h4 style="padding-left: 14pt;text-indent: 0pt;text-align: justify;">» <span class="p">You are therefore requested that your invoice / bill / payment acknowledgement / debit note / credit note, etc. should mention PAN of your entity as well as our PAN.</span></h4>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <ol id="l1">
+         <li data-list-text="1">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">DEFINITIONS AND INTERPRETATION</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l2">
+               <li data-list-text="1.1">
+                  <p style="padding-left: 21pt;text-indent: -15pt;text-align: left;">Definitions: The following terms, unless the context requires otherwise, shall have the following meanings:</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                  <ol id="l3">
+                     <li data-list-text="(a)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">ACCEPTANCE OF GOODS means (i) if acceptance criteria are set forth in this CONTRACT, the BUYER&#39;S preliminary determination that the GOODS satisfy all such acceptance criteria, including commissioning and performance tests, if applicable; or (ii) if no such criteria are provided, the BUYER#S preliminary determination that the GOODS comply with all requirements set forth in this CONTRACT. ACCEPTANCE OF GOODS shall be evidenced by the issuance of a Goods Receipt Note (GRN) by the BUYER.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(b)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">AFFILIATE means, with respect to any PERSON, any other PERSON, directly or indirectly controlling, controlled by or under direct, indirect or common control with, such PERSON. For the purposes of this definition, &quot;control&quot; means the possession, directly or indirectly, of the power to direct or cause the direction of the management or policies of such PERSON, whether through the ownership of voting securities, by agreement with respect to the voting of securities, by other agreement conferring control over management or policy decisions, by virtue of the power to control the composition of the board of directors or managers, or otherwise. The terms #controlling# and #controlled# shall have correlative meanings.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(c)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">BUYER means and shall include its successors and assigns. Terms such as #Reliance Retail Limited#, &#39;Purchaser&#39;, &#39;Owner&#39;, or &#39;Customer&#39;, as may be used in any CONTRACT DOCUMENTS, shall be construed to mean BUYER.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(d)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">CHANGE is defined in Section 19.2.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(e)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">CHANGE NOTICE is defined in Section 19.2.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(f)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">CONFIDENTIAL INFORMATION is defined in Section 12.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(g)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">CONTRACT means the totality of the agreement between the BUYER and the SELLER as expressed in the CONTRACT DOCUMENTS.</p>
+                     </li>
+                     <li data-list-text="(h)">
+                        <p style="padding-top: 3pt;padding-left: 34pt;text-indent: -28pt;text-align: left;">CONTRACT DOCUMENTS means the following and in the event of any conflicting provisions within the CONTRACT DOCUMENTS, the order of precedence of the documents shall be as provided below:</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(i)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PURCHASE ORDER, including any amendments thereto;</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                        <ol id="l4">
+                           <li data-list-text="(ii)">
+                              <p style="padding-left: 18pt;text-indent: -12pt;text-align: left;">SPECIAL CONDITIONS and annexures thereto;</p>
+                              <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                           </li>
+                           <li data-list-text="(iii)">
+                              <p style="padding-left: 20pt;text-indent: -14pt;text-align: left;">GCP; and</p>
+                              <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                           </li>
+                           <li data-list-text="(iv)">
+                              <p style="padding-left: 20pt;text-indent: -14pt;text-align: left;">any other document</p>
+                              <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                              <ol id="l5">
+                                 <li data-list-text="(A)">
+                                    <p style="padding-left: 20pt;text-indent: -14pt;text-align: left;">referred to in any of the documents referred to in clauses (i) through (iii) above, or (B) agreed by the PARTIES to constitute a part of the CONTRACT DOCUMENTS and incorporated herein by specific reference.</p>
+                                    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                                    <ol id="l6">
+                                       <li data-list-text="(i)">
+                                          <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">DEFECT means any defect, deficiency, error, failure, flaw, omission, damage, fault, inadequacy or discrepancy in the workmanship or in the materials used in the fabrication and manufacture of GOODS or any part or component thereof and the word &#39;DEFECTIVE&#39; shall be construed accordingly.</p>
+                                          <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                                       </li>
+                                    </ol>
+                                 </li>
+                              </ol>
+                           </li>
+                        </ol>
+                     </li>
+                     <li data-list-text="(j)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">DELIVERY POINT is defined or described in the SPECIAL CONDITIONS.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(k)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">DELIVERY SCHEDULE is defined or described in the SPECIAL CONDITIONS.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(l)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">DELIVERY TERMS means the terms for the delivery of the GOODS, including the DELIVERY SCHEDULE, DELIVERY POINTS and locations and shipping terms, as set out in this CONTRACT. Except as otherwise specified in this CONTRACT, terms for the delivery of the GOODS shall incorporate the INCOTERMS.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(m)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">DISPUTE is defined in Section 18.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(n)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">DRAWINGS and DOCUMENTS mean the design calculations, drawings, analysis patterns, specifications, construction and fabrication drawings and documents, certificates, test results, installation, operating and maintenance manuals and any other documentation or materials prepared or provided by the SELLER under this CONTRACT (whether recorded in physical form or on electronic storage media).</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(o)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">GOODS means each item to be provided to the BUYER by the SELLER, or by a SUB-SELLER on behalf of the SELLER, including raw materials, processed materials, equipment, components, fabricated goods, finished products, spares, DRAWINGS and DOCUMENTS, data, related firmware or software and any other documentation described in this CONTRACT.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(p)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">GOODS WARRANTY and GOODS WARRANTIES are defined in Section 9.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(q)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">GOODS WARRANTY PERIOD is defined or described in the SPECIAL CONDITIONS.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(r)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">GENERAL CONDITIONS OF PURCHASE or GCP means this General Conditions of Purchase.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(s)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">INCOTERMS means the most recent International Commercial Terms published by the International Chamber of Commerce, Paris, which are in effect as on the date of the PURCHASE ORDER.</p>
+                     </li>
+                     <li data-list-text="(t)">
+                        <p style="padding-top: 3pt;padding-left: 34pt;text-indent: -28pt;text-align: left;">INVOICE PAYMENT DETAILS is defined in Section 5.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(u)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">MAKE GOOD means to repair, correct, re-perform, replace, re-install or re-erect, as appropriate, any part, section, component or functionality of the GOODS, including all testing and re-testing related thereto, such that the GOODS fully comply and conform to the requirements of this CONTRACT.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(v)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">MALICIOUS CODE means any (i) computer virus, worm, bot or trojan or (ii) spyware, malware, malicious, destructive or corrupting code, program, or macro, or any other code, program or macro that is hostile or damaging to information systems or components thereof.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(w)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PARTY means either the BUYER or the SELLER, as the context requires, and the PARTIES mean both the BUYER and the SELLER.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(x)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PERFORMANCE SECURITY is defined in Section 10.</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(y)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PERSON means any individual, firm, corporation, limited liability company, voluntary association, partnership, joint venture, trust, limited organization, society, unincorporated organization, governmental authority or other legal entity or organization.</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="(``)">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PURCHASE ORDER means the document entitled &quot;Purchase Order&quot; to which the documents referenced in Section 1.1 (h) (ii) to (iv) are attached.</p>
+                     </li>
+                  </ol>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(aa)  SCOPE OF SUPPLY means all of the requirements of the BUYER with respect to the supply of the GOODS by the SELLER as set forth in the CONTRACT DOCUMENTS.</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(bb)  SELLER means the PERSON with whom the BUYER has entered into this CONTRACT for purchase of the GOODS, as identified on the face of the PURCHASE ORDER, and shall include such PERSON#S successors and permitted assigns. Terms such as &#39;Vendor&#39;, &#39;Supplier&#39; or &#39;Contractor&#39; as may be used in any CONTRACT DOCUMENTS shall be construed to mean SELLER.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;line-height: 211%;text-align: left;">(cc)  SITE means the BUYER#S premises at which the GOODS are to be stored, located or used as determined by the BUYER. (dd)  SPECIAL CONDITIONS means the document entitled &quot;SPECIAL CONDITIONS&quot; and attached to the PURCHASE ORDER.</p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(ee)  SPECIFICATIONS means the description of the GOODS to be supplied under this CONTRACT, including, where appropriate, all specifications, requirements, technical standards, quality standards, performance standards, compatibility, interoperability, instructions, DRAWINGS and DOCUMENTS and other related criteria.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(ff)  SUB-ORDER means an agreement entered into between the SELLER and a SUB-SELLER for the supply of raw materials, components, equipment, services or such other items as may be required by the SELLER to enable the fulfilment of the SELLER#S obligations under this CONTRACT.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(gg)  SUB-SELLER means any third party from whom the SELLER sources raw materials, components, equipment, services or such other items as may be required by the SELLER to enable the fulfilment of the SELLER&#39;S obligations under this CONTRACT.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(hh)  SUPPORTING DOCUMENTS is defined in Section 5.</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                  <ol id="l7">
+                     <ol id="l8">
+                        <ol id="l9">
+                           <li data-list-text="(ii)">
+                              <p style="padding-left: 36pt;text-indent: -30pt;text-align: left;">TAX or TAXES means all taxes, levies, cess, duties, fees, charges and other assessments imposed or assessed on or payable by the SELLER in any jurisdiction in relation to this CONTRACT or the SELLER&#39;S performance of this CONTRACT.</p>
+                           </li>
+                        </ol>
+                     </ol>
+                  </ol>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(jj)   TOTAL BASIC VALUE means the amount identified as the &quot;Total Basic Value&quot; set forth on the face of the PURCHASE ORDER, as the PURCHASE ORDER may be amended from time to time.</p>
+                  <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br/></p>
+                  <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">(kk)  TOTAL ORDER VALUE means the amount identified as the &quot;Total Order Value&quot; set forth on the face of the PURCHASE ORDER, as the PURCHASE ORDER may be amended from time to time.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="1.2">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">In this CONTRACT:</p>
+               </li>
+            </ol>
+         </li>
+      </ol>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">The singular shall include plural and vice versa, and words denoting natural persons shall also apply to partnerships, firms, companies, corporations, joint ventures, trusts, associations, organizations and other entities. All references to Sections, sub-sections, clauses, paragraphs and annexures are to Sections, sub-sections, clauses, paragraphs and annexures in or to this GCP unless otherwise specified. Reference to any statute shall include reference to applicable rules, regulations, ordinance, notification, orders or any other instrument having force of law prescribed, issued or passed under such statute with amendments thereto and replacements thereof. Unless otherwise required by the context in which any term appears, capitalized terms used in the CONTRACT DOCUMENTS shall have the meanings specified in this GCP, or if not defined in this GCP, as defined elsewhere in the CONTRACT DOCUMENTS. For the purposes of this CONTRACT, the words and abbreviations that have well-known technical or trade meanings used but not defined in this GCP or elsewhere in this CONTRACT, shall be construed in accordance with such recognized technical or trade meanings. The words &quot;include&quot; and &quot;including&quot; are to be construed without limitation. Whenever the context may require, any pronoun shall include the corresponding masculine, feminine and neuter forms. The term &quot;or&quot; is not exclusive. The word &quot;extent&quot; in the phrase &quot;to the extent&quot; shall mean the degree to which a subject or other thing extends, and such phrase shall not mean simply &quot;if.&quot; The words &quot;herein&quot;, &quot;hereof&quot; and &quot;hereunder&quot; and words of similar import when used shall refer to this CONTRACT as a whole and not to any particular Section or sub-section of this CONTRACT.</p>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <ol id="l10">
+         <li data-list-text="2.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">SUPPLY OF GOODS</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">The SELLER shall complete the delivery of the GOODS in accordance with the DELIVERY TERMS. All the obligations of the SELLER to be performed on the dates as specified in this CONTRACT, including the delivery of the GOODS in accordance with the DELIVERY SCHEDULE are essential conditions of this CONTRACT. The SELLER shall at all times comply with all applicable laws in the SELLER#S performance of this CONTRACT. The SELLER shall obtain or procure any and all license#s, permits, consents and approvals which may be required by any governmental authority to enable the supply of the GOODS in accordance with this CONTRACT.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">In case of footwear :- The GOODS shall carry necessary BIS - ISI marks as per the BIS regulations and if any exemption, the same to be also mentioned on the product and on the MRP label. Being a manufacturer,the liability of legal compliance will be solely on you. BUYER reserve the right to refuse to accept or return those GOODS which becomes non-compliant at any time and the cost of such return includingany penalty / fine or any expenses imposed on Buyer / us by any any authority or incurred by us, will be on you / setoff against the payment to you#.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="3.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PRICE</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">Unless otherwise expressly stated in this CONTRACT, the prices and rates set forth in this CONTRACT for the GOODS are not subject to any escalation on any account, including due to any increase in the cost of production, raw materials, labour, TAXES, any fluctuations in exchange rates, changes in applicable law or any other reason. Unless otherwise specified in the SPECIAL CONDITIONS, all prices and rates set forth in the PURCHASE ORDER includes all packing costs, crating, handling charges or any other charges, and may, in accordance with the DELIVERY TERMS, include the costs of carriage/ shipping of the GOODS and costs of insurance covering the GOODS. The SELLER shall ensure that the packing of the GOODS is as per the best standards in the industry for packing similar type of material, including that such packing is transport worthy. Neither the SELLER nor any other PERSON shall be entitled to any payments whatsoever towards any license fees, royalties, levies or the like for use of any intellectual property embodied or utilized in or for the use, operation, manufacture, fabrication, assembly or supply of the GOODS.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="4.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">TAXES &amp; DUTIES</p>
+            <p style="padding-top: 3pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">The prices and rates specified in this CONTRACT include (i) all TAXES, and (ii) all withholding taxes or taxes deducted at source or taxes collected at source, as applicable, in India; with the exception of any taxes payable by the BUYER in India as specified in the SPECIAL CONDITIONS. The BUYER shall provide to the SELLER the certificates for the withholding taxes or taxes deducted at source or taxes collected at source, as applicable, in India deducted by the BUYER. Notwithstanding anything to the contrary in this CONTRACT, the SELLER shall be responsible for and shall bear and pay all TAXES imposed or the withholding taxes or taxes deducted at source or taxes collected at source, as applicable, in India related to payments made by the BUYER to the SELLER. The BUYER shall deduct applicable withholding taxes or taxes deducted at source or taxes collected at source, as applicable, in India from payments due to the SELLER and deposit such withholding taxes or taxes deducted at source or taxes collected at source, as applicable, with the tax authority in India and pay the SELLER the net amount after deducting the applicable withholding taxes or taxes deducted at source or taxes collected at source.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="5.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">INVOICING</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">The SELLER shall be entitled to raise invoices in accordance with the payment terms and invoicing instructions set forth in this CONTRACT. The SELLER shall provide the BUYER at the address specified in the SPECIAL CONDITIONS with correct invoices in triplicate along with all supporting documents required by the BUYER, including payment certification documents, shipping documents required for clearance of the GOODS, documentation required at the ports located in the country of the DELIVERY POINT and any other documents referred to in this CONTRACT or requested in writing by the BUYER (collectively &quot;SUPPORTING DOCUMENTS&quot;). Each invoice shall in all cases include all details requested by the BUYER, including the PURCHASE ORDER number, details for making payment, including the name of the SELLER&#39;S bank, account number, RTGS / NEFT code (as applicable), and SWIFT codes (collectively, &#39;INVOICE PAYMENT DETAILS&#39;). Payment of any invoice shall only be made after BUYER#S receipt of correct invoice containing all INVOICE PAYMENT DETAILS and accompanied by all SUPPORTING DOCUMENTS.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="6.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PAYMENT</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">Unless otherwise expressly stated in the SPECIAL CONDITIONS, the BUYER shall make payment for GOODS within 419EISBPSales based Payment ( ISBP ) days after the BUYER&#39;S receipt of a correct invoice covering such GOODS containing all INVOICE PAYMENT DETAILS and accompanied by all SUPPORTING DOCUMENTS.Payments of any invoice or other amounts to the SELLER shall not constitute ACCEPTANCE OF GOODS. To the extent that an invoice (i) does not include SUPPORTINGDOCUMENTS or INVOICE PAYMENT DETAILS; or (ii) is otherwise incorrect or deficient, then the time period for payment of such portion of the corresponding invoice shall be suspended until days or such other periodas agreed by the PARTIES after the date of receipt of the SUPPORTING DOCUMENTS or INVOICE PAYMENT DETAILS, or receipt of a correct invoice, as the case may be. Neither ACCEPTANCE OF GOODS nor payment for the GOODS shall mean that the GOODS comply with the requirements of this CONTRACT.</p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">Seller may provide extension of credit for goods / services covered under this PO up to 180 days to the Buyer and the seller may at his option negotiate/discount with Reliance#s agreed bank , directly or through C2FO/ Vayana platform after delivery of goods/receipt of Invoice. All resulting interest and banking charges for extended credit period shall be to buyers&#39; account.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="7.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">TITLE TO THE GOODS</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">Except as otherwise provided in this CONTRACT, title to and ownership of the GOODS shall transfer to the BUYER and the GOODS shall become the property of the BUYER upon the first to occur of the following events: (a) when BUYER pays for the GOODS or part thereof; or (b) when such GOODS or part thereof are delivered to the BUYER or to an agent or freight forwarder nominated by the BUYER; or (c) when goods are delivered by the Seller or Person nominated by the Seller, on scanning &amp; accounting of Products to the extent of Products accounted in BUYER#s books of account. Upon transfer of title to the GOODS, the BUYER shall have absolute ownership and good, marketable and clear title to all such GOODS, free and clear of any and all liens, charges, security interests or any other encumbrances. The SELLER shall, at its sole risk and cost, either self-insure or purchase insurance for the GOODS against the risk of loss of or damage to the GOODS for the full replacement value of the GOODS until delivery thereof to the BUYER in accordance with the terms of this CONTRACT.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="8.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">QUALITY</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">The SELLER shall supply the GOODS in accordance with the requirements of this CONTRACT, including with respect to the description, SPECIFICATIONS, and quality and standards as specified in this CONTRACT. Unless otherwise specified in this CONTRACT, the SELLER shall, at SELLER&#39;S cost, examine, test, and inspect the GOODS.</p>
+         </li>
+         <li data-list-text="9.">
+            <p style="padding-top: 3pt;padding-left: 36pt;text-indent: -30pt;text-align: left;">GOODS WARRANTIES</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l11">
+               <li data-list-text="9.1">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">The SELLER warrants that all GOODS shall: (a) be free from DEFECTS; (b) be new and unused, fit for the purposes intended; (c) comply with the requirements of this CONTRACT and applicable laws; (d) be provided with and accompanied by all DRAWINGS and DOCUMENTS as specified in this CONTRACT and all other information, necessary for the operation, maintenance, repair, storage and safe use of the GOODS; and (e) with respect to any firmware or software embedded or accompanying the GOODS, be free from and shall not contain any MALICIOUS CODE. The foregoing warranties are collectively referred to as &quot;GOODS WARRANTIES&quot; and individually as a &quot;GOODS WARRANTY&quot;.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="9.2">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">Without prejudice to any other obligations and liabilities of the SELLER, if the BUYER notifies the SELLER of any breach of any of the GOODS WARRANTIES, then SELLER shall, at its sole cost and expense, immediately following notification, but in any event within seven (7) days of such notification, take all actions and measures, to MAKE GOOD the breach without reducing the functionality of the GOODS or affecting the performance guarantees, if any, given by the SELLER with respect to the GOODS. The SELLER shall be liable for all costs and expenses relating to all MAKE GOOD activities and SELLER&#39;S obligations under any of the GOODS WARRANTIES, including inspection, removal, warehousing, return, re-installation and all taxes, duties and levies. The SELLER#S MAKE GOOD obligations shall be applicable for one or more breaches of the GOODS WARRANTIES that existed prior to the expiration of the WARRANTY PERIOD and such one or more breaches were notified to the SELLER either during the WARRANTY PERIOD or within six (6) months after the expiration of the WARRANTY PERIOD.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="10.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">PERFORMANCE SECURITY</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">The BUYER shall be entitled to make a claim and be permitted to draw the amount of such claim under the PERFORMANCE SECURITY, inter alia, in the event of SELLER#S failure of due and proper performance and observance of the stipulations, terms and conditions of this CONTRACT, including the occurrence of any event of default as set forth in Section 16.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="11.">
+            <p style="padding-left: 21pt;text-indent: -15pt;text-align: left;">INTELLECTUAL PROPERTY RIGHTS</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">The SELLER further represents and warrants and covenants that the GOODS, DRAWINGS and DOCUMENTS and the BUYER&#39;S proposed use (as contemplated by this CONTRACT) of the GOODS and all other property provided by the SELLER under this CONTRACT, do not and will not infringe or misappropriate the intellectual property rights of any third party. The SELLER hereby grants to the BUYER a perpetual, irrevocable, non-exclusive, royalty-free, fully paid-up right and license, with the right to use, copy, modify and prepare derivative works of the SELLER&#39;S intellectual property incorporated in the GOODS or the DRAWINGS and DOCUMENTS.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="12.">
+            <p style="padding-left: 21pt;text-indent: -15pt;text-align: left;">CONFIDENTIALITY</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">Save as expressly permitted by this Section, any confidential information of the BUYER (the &quot;CONFIDENTIAL INFORMATION&quot;) disclosed to the SELLER shall not, without the prior written consent of the BUYER, be disclosed, used, copied, modified or otherwise transferred by the SELLER to any third party, other than to the SELLER#S AFFILIATES and the SELLER#S and the SELLER&#39;S AFFILIATES&#39; respective directors, officers and employees (i) who have a need to know in connection with the supply and/or usage of the GOODS under this CONTRACT, and (ii) who are bound by a written obligation of confidentiality to the SELLER no less restrictive than the provisions of this CONTRACT; in each case only to the extent necessary for the purpose of performing its obligations under this CONTRACT and for no other purpose. The SELLER agrees to protect the CONFIDENTIAL INFORMATION with the same degree of care that it uses to protect its own confidential information, but in all events will use at least a reasonable degree of care. Upon notice by the BUYER, the SELLER shall promptly return or destroy the CONFIDENTIAL INFORMATION as directed by the BUYER and provide a written confirmation thereof to the BUYER.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="13.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">ETHICAL CONDUCT</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">In addition to the other representations and warranties contained in this CONTRACT, the SELLER further represents, warrants and covenants that:</p>
+            <ol id="l12">
+               <li data-list-text="(a)">
+                  <p style="padding-left: 19pt;text-indent: -13pt;text-align: left;">neither the SELLER nor any of its AFFILIATES and to the best of its knowledge, none of its SUB-SELLERS, nor any of its or its AFFILIATES&#39; or SUB-SELLERS&#39; respective employees, officers, directors or representatives, has made, offered to make or agreed to make any loan, gift, donation, commission, kick-back, bribe or other payment or facility, directly or indirectly, whether in cash or in kind, to or for (i) any official, employee or representative of any governmental authority, (ii) any employee, officer, director or representative of the BUYER or its AFFILIATES, or (iii) any third party, by whatsoever name called, related to the negotiation or execution of this CONTRACT or in connection with the performance of this CONTRACT;</p>
+                  <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="(b)">
+                  <p style="padding-left: 19pt;text-indent: -13pt;text-align: left;">the SELLER will not, and it will cause its AFFILIATES and SUB-SELLERS, and its and their respective employees, officers, directors or representatives to not, make, offer to make or agree to make any loan, gift, donation, commission, kick-back, bribe or other payment or facility, directly or indirectly, whether in cash or in kind, to or for (i) any official, employee or representative of any governmental authority, (ii) any employee, officer, director or representative of the BUYER or its AFFILIATES, or (iii) any third party related to the negotiation or execution of this CONTRACT or in connection with the performance of this CONTRACT; and (c) if the SELLER learns of or has reason to know of any such payment, offer or agreement described in Section 13 (a) or (b) above, to make any such loan, gift, donation, commission, kick-back, bribe or other payment or facility to any of the persons described in Section 13 (a) or (b) above, it will immediately inform the BUYER in writing communicating to the BUYER all relevant information in respect of the above within the knowledge or possession of the SELLER. Without prejudice to the SELLER&#39;S obligations as above, the SELLER agrees not to, and to cause its AFFILIATES and SUB-SELLERS not to, offer or give, or agree to give, to any employee, officer, director or representative of the BUYER any consideration of any kind as an inducement or reward for doing, refraining from doing, or for having done or refrained from doing, any act in relation to the obtaining or performance of this CONTRACT, or for showing or refraining from showing favour or disfavour to any third party in relation to this CONTRACT.</p>
+               </li>
+            </ol>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="14.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">INDEMNIFICATION</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l13">
+               <li data-list-text="14.1">
+                  <p style="padding-left: 26pt;text-indent: -20pt;text-align: left;">The SELLER shall defend, indemnify and hold harmless the BUYER from and against (a) any and all claims brought against the BUYER; and (b) any and all losses incurred or suffered by the BUYER, in each case for or relating to or arising out of sickness, injury to or death of any person, or damage to or destruction of property owned or leased by any person or entity, to the extent caused by the gross negligence or willful misconduct of the SELLER or any SUB-SELLER.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="14.2">
+                  <p style="padding-left: 26pt;text-indent: -20pt;text-align: left;">The SELLER shall defend, indemnify and hold harmless the BUYER from and against (i) any and all claims brought against the BUYER; and (ii) any and all losses incurred or suffered by the BUYER, in each case for or relating to: (a) violation of any applicable laws by the SELLER or a SUB-SELLER, including any penalty, interest, tax or other charge that may be levied or assessed as a result of any delay or failure of the SELLER or SUB-SELLER to pay any TAXES payable by the SELLER or SUB-SELLER or file any return or information required to be filed by the SELLER or the SUB-SELLER under any applicable laws; and (b) failure of the SELLER to pay any PERSONS, including the SUB-SELLERS, furnishing labour, equipment, materials, software or intellectual property used by the SELLER in performing the SELLER&#39;S obligations under this CONTRACT.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="15.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">SUSPENSION AND TERMINATION FOR CONVENIENCE</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l14">
+               <li data-list-text="15.1">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">Notwithstanding anything contained to the contrary in any other provisions of this CONTRACT, the BUYER may at any time upon prior written notice to the SELLER, terminate all or any part of this CONTRACT for convenience or suspend all or any part of this CONTRACT for such period of time as the BUYER may determine.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="16.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">TERMINATION FOR CAUSE</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">The BUYER may, without prejudice to any other rights or remedies of the BUYER in this CONTRACT or at law or in equity, terminate this CONTRACT by a written notice of termination and without any penalty to, or payment obligation of, the BUYER (other than undisputed payment obligations outstanding as of the date of any such termination, with disputed payment obligations being subject to the dispute resolution provisions of Section 18) due to the occurrence of any of the following events: (a) the SELLER commences or is subject to any proceeding for relief from its creditors or bankruptcy ; or (b) Goods supplied are not as per Specifications as defined under Clause 1.1.(ee); or (c) the SELLER commits any misrepresentation, fraud or willful misconduct or breaches the provisions of Sections 7, 8, 9, 12 or 13, or any other material stipulation, term, or condition of this CONTRACT.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="17.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">LIMITATION AND EXCLUSION OF LIABILITY</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l15">
+               <li data-list-text="17.1">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">The aggregate liability of a PARTY in respect of any and all claims or liabilities arising out of or in connection with any breach of this CONTRACT shall not, in the aggregate, exceed the TOTAL BASIC VALUE. The foregoing limitation of liability shall not apply to: (i) SELLER&#39;S breach of Sections 11 and 13; (ii) all of the SELLER&#39;S internal costs and expenses and TAXES in connection SELLER&#39;S obligations under any of the GOODS WARRANTIES; (iii) any breach by the SELLER of applicable laws; and (iv) SELLER&#39;S gross negligence, willful misconduct, fraud or willful misrepresentation.</p>
+               </li>
+               <li data-list-text="17.2">
+                  <p style="padding-top: 3pt;padding-left: 34pt;text-indent: -28pt;text-align: left;">Neither PARTY shall be liable to the other PARTY for any indirect, remote, special, exemplary or punitive damages or consequential damage of such other PARTY, such as loss of business opportunity, goodwill or loss of profits, provided however, the foregoing limitation and exclusion shall not apply to liabilities arising from the SELLER&#39;S breach of Sections 11 and 13, or for SELLER&#39;S, gross negligence, willful misconduct, fraud or willful misrepresentation.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="18.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">GOVERNING LAW, JURISDICTION AND DISPUTE RESOLUTION</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">This CONTRACT shall be governed by and construed in accordance with the laws of the Republic of India excluding its conflicts-of-laws provisions which would refer construction hereof to the laws of another jurisdiction. Any PARTY claiming that one or more questions, claims or differences of opinion (each a &quot;DISPUTE&quot;) has arisen which is attributable to the construction, interpretation or performance or breach of the terms and conditions of this CONTRACT, then the PARTIES shall first make good faith efforts to amicably resolve the DISPUTE. If, despite good faith efforts the PARTIES cannot amicably resolve the DISPUTE, then either PARTY shall have a right to refer such DISPUTE to arbitration by a sole arbitrator to be appointed in accordance with the provisions of the Arbitration and Conciliation Act, 1996. The arbitration proceedings shall be held in Mumbai, Maharashtra, India, shall be conducted in the English language and in accordance with the provisions of the Arbitration and Conciliation Act, 1996. The decision of the arbitrator on any DISPUTE shall constitute an award and shall be final and binding on the PARTIES.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="19.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">MISCELLANEOUS</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l16">
+               <li data-list-text="19.1">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">The SELLER represents and warrants to the BUYER that (i) this CONTRACT has been duly authorized, executed and delivered by the SELLER and constitutes the legal, valid and binding obligation of the SELLER, enforceable against the SELLER in accordance with its terms; (ii) the GOODS comply with the requirements of this CONTRACT and applicable laws; and (iii) the SELLER will deliver to the BUYER good and marketable title to GOODS, and upon delivery, all GOODS shall be free and clear of any and all liens, claims, security interests, encumbrances and rights of third parties.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.2">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">The BUYER may, at any time, by written notice to the SELLER signed by the BUYER#S authorized representative (#CHANGE NOTICE#) direct changes to this CONTRACT (#CHANGE#), including changes in any one or more of the following: (1) the DRAWINGS and DOCUMENTS, SPECIFICATIONS or SCOPE OF SUPPLY; (2) any additions to or deletions from quantities ordered; and (3) the DELIVERY TERMS. Upon receipt of the CHANGE NOTICE, if no equitable adjustment is required, then the SELLER shall diligently implement and perform the CHANGE such that it shall meet all the performance obligations, including delivery of GOODS as agreed in this CONTRACT. However, if the SELLER believes that it is entitled to an equitable adjustment then the SELLER shall assert its claim for an adjustment for any CHANGE under this Section 19.2 within ten (10) days from the date of the SELLER#S receipt of the CHANGE NOTICE, accompanied by all documents (including technical documents and calculations) supporting or evidencing its claim. The SELLER shall not suspend or delay performance of this CONTRACT during the review, negotiation and settlement of any CHANGE. In the event of a DISPUTE in relation to the validity or interpretation of a CHANGE NOTICE or if the BUYER and the SELLER cannot agree on the terms of the CHANGE, then the BUYER shall have the right to direct the SELLER to implement such CHANGE and the SELLER shall be bound to implement such CHANGE notwithstanding such DISPUTE. The SELLER shall keep auditable records relating to the implementation of such CHANGE. Any such DISPUTE shall be subject to resolution in accordance with Section 18.</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.3">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">At the sole option and written direction of the BUYER, the SELLER shall store the GOODS up to sixty (60) days beyond the delivery dates stipulated in this CONTRACT, at no cost to the BUYER. The SELLER shall continue to maintain the insurance on the GOODS in accordance with Section 7 for the period of such storage. For storage after sixty (60) days, the SELLER shall be entitled to reimbursement of all direct out of pocket expenses and insurance costs incurred for storage of the GOODS beyond the initial sixty (60) days subject to production of evidence of such payment. This section shall not be applicable to Products manufactured by the SELLER if the Products do not bear the Trademarks/Logos of the BUYER.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.4">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">The BUYER may, at the BUYER&#39;S option, offset any amounts due to the BUYER from the SELLER under this CONTRACT or any other purchase order or contract between the BUYER and the SELLER</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.5">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">Neither PARTY may assign, transfer or delegate all or any portion of its rights or obligations under this CONTRACT in any manner, without the prior written consent of the other PARTY, except that this CONTRACT may be assigned or transferred in whole (both as to the benefits and/or the obligations contained therein) or in part by the BUYER to any AFFILIATE of the BUYER and/or to any leasing or financial institution without the consent or approval of the SELLER. Subject to the provision of this Section 19.5, this CONTRACT shall inure to the benefit of and be binding upon the successors and assigns of the PARTIES.</p>
+               </li>
+               <li data-list-text="19.6">
+                  <p style="padding-top: 3pt;padding-left: 34pt;text-indent: -28pt;text-align: left;">The performance by the SELLER of its duties and obligations under this CONTRACT is that of an independent contractor and nothing contained in this CONTRACT creates or implies an agency relationship or constitutes a joint venture or partnership between the BUYER and the SELLER. The SELLER shall have no right or authority to make commitments or enter into contracts on behalf of, bind, or otherwise obligate the BUYER in any manner whatsoever.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.7">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">No change, amendment, waiver or modification of this CONTRACT shall be valid or binding upon the PARTIES unless such change, amendment, waiver or modification shall be in writing and duly executed by the authorized representatives of both PARTIES. In case any one or more of the provisions contained in this CONTRACT shall, for any reason, be held to be invalid, illegal or unenforceable in any respect, such invalidity, illegality or unenforceability shall not affect the other provisions of this CONTRACT, and this CONTRACT shall be construed as if such invalid, illegal or unenforceable provision had never been contained herein.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.8">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">The obligations under this CONTRACT which by implication or by express stipulation of the PARTIES survive the termination or expiry of this CONTRACT shall be performed by the PARTIES even after the termination or expiration of this CONTRACT. In addition to and without limiting the generality of the foregoing, Sections 4, 7, 9, 10, 11, 12, 14, 17, 18 and 19 shall survive any termination or expiration of this CONTRACT or any portion thereof.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.9">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: justify;">Nothing contained in this CONTRACT shall have an effect of limiting either PARTY&#39;S remedies that are otherwise available to a PARTY in law or equity against the other PARTY. Neither this CONTRACT nor any provision thereof will be construed in favour of or against a PARTY due to that PARTY&#39;S drafting of this CONTRACT or any provision thereof. No course of dealing or course of performance under any other contract between the PARTIES shall be considered in the interpretation or enforcement of this CONTRACT.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.10">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">This CONTRACT embodies the entire agreement between the BUYER and the SELLER with respect to the subject matter of this CONTRACT. Nothing contained in any invoice or other document signifying the agreement, acknowledgement or confirmation, or conditional acceptance of this CONTRACT by the SELLER or communication thereof shall have any effect of amendment or variation to this CONTRACT unless such amendment or variation is specifically accepted by the BUYER in writing and included in this CONTRACT.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="19.11">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: justify;">FORCE MAJEURE</p>
+               </li>
+            </ol>
+         </li>
+      </ol>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">For the purposes of this contract, an event of &quot;force majeure&quot; shall mean any strikes, work stoppages or other labour difficulties, fires, floods or other acts of God; acts of government or any subdivision or agency thereof; which are beyond the control of the party claiming the occurrence of a force majeure event and which delays, interrupts or prevents such party from performing its obligations under this contract. Notwithstanding any provision hereof to the contrary, the reduction, depletion, shortage, curtailment or cessation of Seller&#39;s supplies or reserves or any other supplies or materials of Seller shall not be regarded as an event of force majeure. The party affected by a force majeure event shall give notice thereof to the other party within ten (10) days following the occurrence thereof and shall apprise the other party of the probable extent to which the affected party will be unable to perform or will be delayed in performing its obligations hereunder. The affected party shall exercise due diligence to eliminate or remedy the force majeure cause and shall give the other party prompt notice when that has been accomplished. Notwithstanding the foregoing, within five (5) days following Seller&#39;s declaration of a force majeure event which prevents its full and/or timely delivery of the goods hereunder, Buyer may at its option and without liability (1) require Seller to apportion among its customers the goods available for delivery during the force majeure period; (2) cancel any or all delayed or reduced deliveries; or (3) cancel any outstanding deliveries hereunder and terminate this contract. After cessation of a force majeure event declared by Seller, Seller shall, at Buyer&#39;s option but not otherwise, be obligated to deliver goods not delivered during the force majeure period. After cessation of a force majeure event declared by Buyer, neither party shall be obligated to deliver or purchase goods not so delivered and purchased during the force majeure period.</p>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">*****</p>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">GENERAL INSTRUCTIONS:</p>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <ol id="l17">
+         <li data-list-text="1)">
+            <p style="padding-left: 16pt;text-indent: -10pt;text-align: justify;">Product cost is exclusive of freight charges</p>
+         </li>
+         <li data-list-text="2)">
+            <p style="padding-top: 3pt;padding-left: 16pt;text-indent: -10pt;text-align: left;">Goods to be accompanied by the following documents. Non-compliance will result in non-acceptance of goods at destination &amp; resending goods to origin, such infructuous freight movement will be borne by vendor.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l18">
+               <li data-list-text="a)">
+                  <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">Valid Po copy.</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="b)">
+                  <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">Consolidated packing list which has been signed by the reliance QA</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="c)">
+                  <p style="padding-left: 16pt;text-indent: -9pt;text-align: left;">Summary of the packing list which has been signed by the reliance QA.</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="d)">
+                  <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">Cartonwise packing slip.</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="e)">
+                  <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">Original QA certificate. Reliance, at its sole discretion, may reject the quantity of merchandise delivered without QA certificate</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="f)">
+                  <p style="padding-left: 14pt;text-indent: -8pt;text-align: left;">Original invoice copy which has been signed by Reliance QA with two extra copies</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="3)">
+            <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">All above-mentioned documents to be put in an envelope and marked as, &quot;to be handed over to dc inbound manager&quot;.</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="4)">
+            <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">The delivery date mentioned in Po is in-dc date. Vendor ex-factory date is 15 days before the in-dc date mentioned in Po. Asn has to be applied minimum 17 days before the in-dc date.</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="5)">
+            <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">Liquidated damages clause:</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">In the event due to any reasons whatsoever, seller fails to deliver the merchandise as per the delivery schedule set out in this order, Reliance may, at its sole discretion either reject the entire quantity of merchandise delivered by the seller after the delivery date or accept such quantity of merchandise as reliance may, at its sole discretion deem appropriate. Such acceptance of merchandise delivered after the delivery date shall be without prejudice to any other rights of reliance including without limitation following rights of reliance for ascertained and agreed liquidated damages not amounting to penalty:</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l19">
+               <li data-list-text="a)">
+                  <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">If Reliance, at its sole discretion, does not accepts the delivery of merchandise delivered by the seller after the delivery date, liquidated damages equal to 15% of the basic cost of the merchandise not delivered as per the delivery schedule for every week of delay.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="b)">
+                  <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">If Reliance, at its sole discretion accepts the delivery of merchandise delivered after the delivery date, liquidated damages equal to 3% (In case of Fabric / Yarn Vendors the LD will be 5%) of the basic cost of the merchandise not delivered as per the delivery schedule for every week of delay as per the delivery schedule.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="c)">
+                  <p style="padding-left: 16pt;text-indent: -9pt;text-align: left;">Delivery window for each Po is one month and delivery can be made in the period within 30 days before the delivery date on the Po.</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="6)">
+            <p style="padding-left: 16pt;text-indent: -10pt;text-align: left;">Terms of payment:</p>
+         </li>
+      </ol>
+      <p style="padding-left: 6pt;text-indent: 0pt;line-height: 211%;text-align: left;">Pro-rata payment(s) shall be made within days from the date of receipt of goods, subject to receipt of correct invoice and dispatch documents, by the buyer within 10 days of supply. Notes:</p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">It is essential that the seller shall mention item no &amp; item code along with corresponding material description and Po no as mentioned above, in the delivery challan (on-shore order) packing list (offshore-order) and invoice for ease of material in warding and bill processing. It is also essential that the seller attaches a tag/sticker with each item indicating item code &amp; Po no. failure to do so may be the grounds for the rejection(s) or delay in release of payment(s).</p>
+      <p style="padding-top: 3pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">The ordered material should be delivered to Reliance Supply Chain Solutions ltd (RSCSL) at the distribution centre given in the Po under &quot;delivery address&quot; who are authorized to receive the material on our behalf.</p>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">Suppliers need to call the destination dc at least 24 hrs in advance to schedule the delivery time for goods. Vehicle without prior appointment could be subject to delay.</p>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;line-height: 211%;text-align: left;">Annexure on Anti- Corruption and Anti Money Laundering Definitions</p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Affiliate&quot; means -</p>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <ol id="l20">
+         <li data-list-text="(i)">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">a Person which directly or indirectly controls a Party;</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="(ii)">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">a Person which is directly or indirectly controlled by a Party; or</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="(iii)">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">a Person that is under common control with a Party.</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: justify;">For the purposes of this definition of &quot;Affiliate&quot;, &quot;control&quot; means either ownership by one Person of the largest or controlling percentage of the voting securities or interests of the other Person, or the power to direct, administer and dictate policies of the other Person, or control the composition of the board of directors or managers, by virtue of any contractual arrangements or otherwise, and the term &quot;controlled&quot; shall have a corresponding meaning.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Associated Person&quot; means in relation to a Party or any Government Official, any Person who is an agent, servant, representative, director, officer or employee of such Person.</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Company&quot; means Reliance Retail Limited (&quot;Buyer&quot;), a company incorporated and registered under the Companies Act 1956 and having its registered office at 3rd Floor, Court House, Lokmanya Tilak Marg, Dhobi Talao, Mumbai 400002, India and its successors and assigns from time to time.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Contractor&quot; means the Person with whom the Company has placed the Purchase Order.</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Governmental Authority&quot; means any local, regional, state, federal or central government, governmental agency, department, ministry, commission, board, bureau or any other administrative or judicial or quasi-judicial authority, regulatory authority or instrumentality thereof.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Government Official&quot; means, whether appointed, elected or otherwise any:</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l21">
+               <li data-list-text="(a)">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">officer or employee of a government or any department, agency or instrumentality of a government;</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="(b)">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">person acting in an official capacity or exercising a public function for or on behalf of a country or territory (or any subdivision of such a country or territory) or a government or any department, agency, enterprise or instrumentality of a country or territory (or any subdivision of such a country or territory) or a government;</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="(c)">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">officer or employee of a company or business which is majority owned or controlled by a government;</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="(d)">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">officer, employee or agent of a public international organisation such as the World Bank or United Nations; and/or</p>
+                  <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="(e)">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">officer or employee of a political party or any person acting in an official capacity on behalf of a political party.</p>
+               </li>
+            </ol>
+         </li>
+      </ol>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Law&quot; means all federal, national, central, state, municipal and/or local legislation, ordinances, rules, regulations, statutes, bylaws, administrative requirements, notifications published in official gazettes, registration requirements, permits and other laws of any Governmental Authority, orders of any court, tribunal or any other judicial body, and any other instrument or pronouncement having the force of law as may be issued and be in force from time to time.</p>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Party&quot; means either Company (&quot;Buyer&quot;) or Contractor, as the context requires, and the &quot;Parties&quot; means both Company and Contractor.</p>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Person&quot; means any natural person, firm, corporation, company, voluntary association, partnership, joint venture, trust, limited organisation, competent authority or other entity including either Party, their Affiliates and Associated Persons.</p>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">&quot;Purchase Order&quot; means purchase order number [] pursuant to which Contractor has agreed to supply the Goods and perform the Work, incorporating, inter alia, these General Conditions of Purchase and all other Attachments, Exhibits, Annexures and amendments to purchase order in accordance with its terms.</p>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 14pt;text-indent: 0pt;line-height: 222%;text-align: left;">&quot;Sub-Contractor&quot; means any contractor (of any tier) of Contractor supplying goods, services, materials, labour or equipment in connection with the Purchase Order. &quot;Work&quot; means all activities to be carried out for supply of the Goods by Contractor and other works to be carried out by Contractor as set out in the Purchase Order.</p>
+      <ol id="l22">
+         <li data-list-text="1.">
+            <p style="padding-left: 36pt;text-indent: -30pt;line-height: 10pt;text-align: left;">Each of the Parties represents and warrants to the other Party that, in the past five years prior to the date of the Purchase Order, neither it nor, to the best of its knowledge, any of its Affiliates</p>
+            <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">or Associated Persons, in connection with the Purchase Order or the Work,</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l23">
+               <li data-list-text="a.">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">has engaged in any activity, practice or conduct, which will amount to corruption including but not limited to,</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                  <ol id="l24">
+                     <li data-list-text="i.">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">paying, offering or offering to give, promising or agreeing to give, or authorizing the payment (directly or indirectly through any third party) of any monies, consideration of any kind or anything  of value, to (a) any Government Official in order to obtain or retain business or to influence official action, or (b) or any of the other Party&#39;s Affiliates or Associated Persons or any other Person, in each case where such activities have the purpose or effect of commercial bribery, or acceptance or acquiescence in kickbacks or other unlawful or improper means of obtaining or retaining business, or taking or refraining from taking any action as an improper inducement or a reward for any act or decision; or</p>
+                        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                     <li data-list-text="ii.">
+                        <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">receiving, extorting or soliciting, any monies, consideration of any kind or anything of value for any undue act or decision; or</p>
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+                     </li>
+                  </ol>
+               </li>
+               <li data-list-text="b.">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: justify;">has directly or indirectly engaged in any other acts or transactions in each case, in violation of or inconsistent with the Prevention of Corruption Act, 1988 as may be amended, re-enacted, replaced or consolidated from time to time and in relation to the offence of abetment, Indian Penal Code 1860 as may be amended, re-enacted, replaced or consolidated from time to time, or any other applicable anti-bribery or anti-corruption Law, which has as its objective, the prevention of corruption.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="2.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: justify;">Each of the Parties further represents and warrants to the other Party that, in the past five years prior to the date of the Purchase Order, neither it nor, to the best of its knowledge, any of its Affiliates or Associated Persons:</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l25">
+               <li data-list-text="a.">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">has directly or indirectly engaged in or facilitated any activity which will amount to money laundering, including without limitation, smuggling, terrorism and terrorist financing, conversion, concealment or disguise to make appear as legitimate, or acquisition, possession or use, of any economic advantage or property obtained or suspected to have been obtained from or in connection with any category of offences designated under any applicable anti-money laundering or other applicable Law; or</p>
+                  <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="b.">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">has violated any provisions of the Prevention of Money Laundering Act, 2002, as may be amended, re-enacted, replaced or consolidated from time to time, or any other applicable anti-money laundering Law, which has as its objective the prevention of money laundering.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="3.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">Each of the Parties further undertakes to the other Party that neither it nor any of its Affiliates or Associated Persons during the course of this agreement will act in a manner that renders the representations and warranties contained in Article 1 or 2 above incorrect, untrue or misleading.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="4.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">If, in the reasonable judgement of either of the Parties, the other Party is in breach of its representations and warranties under Article 1a, 1b or 2a, 2b above, and/or undertaking in Article 3 above, the non-breaching Party shall have, without prejudice to any other right or remedy legally available to it, the right to either:</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l26">
+               <li data-list-text="a.">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">require the other Party to undertake any and all requisite measures to remedy or rectify such breach; and/or</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="b.">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">terminate the Purchase Order/contract and recover any loss suffered by the non-breaching Party resulting from such termination; and/or</p>
+                  <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+               <li data-list-text="c.">
+                  <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">recover in full from the breaching Party any other loss sustained by the non-breaching Party as a consequence of any such breach, whether the Purchase Order/contract has been terminated or not.</p>
+                  <p style="text-indent: 0pt;text-align: left;"><br/></p>
+               </li>
+            </ol>
+         </li>
+         <li data-list-text="5.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">Contractor further represents and warrants that it shall conduct due diligence before appointment of its Sub-Contractor(s) and shall cause such Sub-Contractor(s) to comply with all of the aforesaid anti-corruption and anti-money laundering Laws and undertakes to indemnify the Company, its Affiliates and Associated Persons against any loss or damages suffered on account of any failure by such Sub-Contractor(s) to comply with the aforesaid Laws.</p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="6.">
+            <h4 style="padding-left: 34pt;text-indent: -28pt;text-align: left;">Reporting Mechanism:</h4>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <h4 style="padding-left: 6pt;text-indent: 0pt;text-align: left;"><a href="mailto:&#39;rr.vigilance@ril.com" class="s15" target="_blank">If Contractor or any of its Affiliates or Associated Persons becomes aware of or reasonably suspects a violation or potential violation of Articles 1, 2 and 3 by either of the Parties to this Agreement, such Persons may report the same to the Company by sending email to </a>&#39;rr.vigilance@ril.com&#39; or call to Toll-free number: 18008903477 to report the unethical incident.</h4>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+         </li>
+         <li data-list-text="7.">
+            <p style="padding-left: 34pt;text-indent: -28pt;text-align: left;">Protection:</p>
+         </li>
+      </ol>
+      <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+      <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">If Contractor or any of its Affiliates or Associated Persons refuses to pay or offer a bribe or raises concerns, or report any wrongdoing to the Company, such Person will not face any form of retaliation from the Company. The Company encourages openness and will support anyone who raises genuine concerns about any corrupt practices, in good faith.</p>
+      <h3 style="padding-top: 10pt;text-indent: 0pt;text-align: center; margin-right: 30px;">Annexure For Site Details</h3>
+      <p style="text-indent: 0pt;text-align: left;"><br/></p>
+      <table style="border-collapse:collapse;margin-left:6.15pt" cellspacing="0">
+         <tr style="height:13pt">
+            <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">Site</p>
+            </td>
+            <td style="width:158pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">Site Name</p>
+            </td>
+            <td style="width:471pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">Address</p>
+            </td>
+            <td style="width:115pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s6" style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;line-height: 10pt;text-align: left;">GSTN No</p>
+            </td>
+         </tr>
+         <tr style="height:36pt">
+            <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s12" style="padding-top: 3pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">{{site_details.code}}</p>
+            </td>
+            <td style="width:158pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s12" style="padding-top: 3pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">{{site_details.name}}</p>
+            </td>
+            <td style="width:471pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s12" style="padding-top: 3pt;padding-left: 4pt;padding-right: 224pt;text-indent: 0pt;line-height: 119%;text-align: left;">{{site_details.address.street_2}}, {{site_details.address.street_3}}  {{site_details.address.street_4}}  {{site_details.address.street_5}}</p>
+               <p class="s12" style="padding-left: 4pt;text-indent: 0pt;line-height: 8pt;text-align: left;">{{site_details.address.city}}, {{site_details.address.state}} {{site_details.address.pincode}}</p>
+            </td>
+            <td style="width:115pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+               <p class="s5" style="padding-top: 2pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">{{site_details.gst_no}}</p>
+            </td>
+         </tr>
+      </table>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
