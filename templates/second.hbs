@@ -292,7 +292,7 @@
             </thead>
             <tbody>
               {{#each po_item}}
-                {{#each this.items}}
+                {{#each this.sub_group_articles}}
                   <tr class="item">
                     <td>{{this.sr_no}}</td>
                     <td>{{this.article_no}}<br />{{this.hsn_code}}</td>
@@ -316,7 +316,7 @@
                 {{/each}}
                 <tr>
                   <td class="bold" style="text-align: center;" colspan='4'>Sub Total of Qty</td>
-                  <td class="bold" style="text-align: right;">{{this.total_quantity}}</td>
+                  <td class="bold" style="text-align: right;">{{this.sub_total_qty}}</td>
                   <td></td>
                   <td></td>
                   <td></td>

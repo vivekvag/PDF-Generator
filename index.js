@@ -6,10 +6,15 @@ const data = require('./data.json');
 const ThermalPrinterHelper = require('./ThermalPrinterHelper');
 const { generateQrCode, generateBarCode } = require('./generator');
 const pdfMerge = require('easy-pdf-merge');
+const { PDFDocument } = require('pdf-lib');
 
 hbs.registerHelper('inc', function (value, options) {
 	return parseInt(value) + 1;
 });
+
+const src = `data:image/jpeg;base64,${fs
+	.readFileSync('./templates/images/reliance-icon.jpg')
+	.toString('base64')}`;
 
 // Function to compile Handlebars template
 const compile = async function (template, data) {
@@ -31,42 +36,25 @@ const styleContent = `
 			</style>
 		`;
 
-function groupBySubtotalQuantity(poItems) {
-	const groupedPayload = {};
-	poItems.forEach((item) => {
-		const groupKey = item.article_no.toString().substring(0, 9); // Get the first 4 characters of article_no
-		const totalQuantity = parseFloat(item.quantity); // Convert quantity to a floating-point number
-		if (!groupedPayload[groupKey]) {
-			groupedPayload[groupKey] = {
-				total_quantity: 0, // Initialize total quantity to 0
-				items: [],
-			};
-		}
-		groupedPayload[groupKey].items.push(item);
-		groupedPayload[groupKey].total_quantity += totalQuantity; // Add quantity to total quantity
-	});
+async function MergePDF(pdf1, pdf2) {
+	const cover = await PDFDocument.load(pdf1);
+	const invoice = await PDFDocument.load(pdf2);
 
-	// Format total_quantity to have up to 3 decimal places and convert to string
-	Object.keys(groupedPayload).forEach((key) => {
-		groupedPayload[key].total_quantity = parseFloat(
-			groupedPayload[key].total_quantity.toFixed(3)
-		).toFixed(3);
-	});
+	// Create a new document
+	const doc = await PDFDocument.create();
 
-	// Sort items within each group based on the last number of the material description
-	Object.keys(groupedPayload).forEach((key) => {
-		groupedPayload[key].items.sort((a, b) => {
-			const getLastNumber = (str) => parseInt(str.match(/\d+$/)[0]); // Extract last number from string
-			return (
-				getLastNumber(a.material_description) -
-				getLastNumber(b.material_description)
-			);
-		});
-	});
+	// Add the cover to the new doc
+	const [coverPage] = await doc.copyPages(cover, [0]);
+	doc.addPage(coverPage);
 
-	const result = Object.keys(groupedPayload).map((key) => groupedPayload[key]);
+	// Add individual content pages
+	const contentPages = await doc.copyPages(invoice, invoice.getPageIndices());
+	for (const page of contentPages) {
+		doc.addPage(page);
+	}
 
-	return { po_item: result };
+	// Write the PDF to a buffer
+	return await doc.save();
 }
 
 // Function to generate PDF
@@ -80,39 +68,31 @@ const generatePDF = async () => {
 		const page_2 = await browser.newPage();
 
 		const payloadJSON = data;
-		const groupedPayload = groupBySubtotalQuantity(payloadJSON.po_item);
-		payloadJSON.po_item = groupedPayload.po_item;
+		// const groupedPayload = groupBySubtotalQuantity(payloadJSON.po_item);
+		// payloadJSON.po_item = groupedPayload.po_item;
+		payloadJSON.src = src;
 
 		// Compile template with user and seller information
-		const content = await compile('index', payloadJSON);
+		const content_1 = await compile('index', payloadJSON);
 		const content_2 = await compile('second', payloadJSON);
 
 		// Add the formatted text and barcode to your content
-		const modifiedContent = content;
+		// const modifiedContent = content;
 
-		await page.setContent(modifiedContent);
+		await page.setContent(content_1);
 		await page_2.setContent(content_2);
 
-		await page.addStyleTag({
-			content: `
-				body { margin-top: 1cm; }
-				@page:first { margin-top: 0; }
-			`,
-		});
 		// Generate PDF for each page
-		await page.pdf({
-			path: 'output.pdf',
+		const pdf1 = await page.pdf({
+			// path: 'output_1.pdf',
 			format: 'A4',
 			printBackground: true,
 			preferCSSPageSize: true,
-			displayHeaderFooter: true,
-			margin: {
-				top: '100px',
-			},
+			displayHeaderFooter: false,
 		});
 		// Generate PDF for each page
-		await page_2.pdf({
-			path: 'output_2.pdf',
+		const pdf2 = await page_2.pdf({
+			// path: 'output_2.pdf',
 			format: 'A4',
 			printBackground: true,
 			preferCSSPageSize: true,
@@ -139,17 +119,26 @@ const generatePDF = async () => {
 				</div>
 			`,
 		});
+		console.log('PDF 2 buffer is printing', pdf1);
+		console.log('PDF 2 buffer is printing', pdf2);
 
-		pdfMerge(
-			['./output.pdf', './output_2.pdf'],
-			path.join(__dirname, `./mergedFile.pdf`),
-			async (err) => {
-				if (err) return console.log(err);
-				console.log('Successfully merged!');
-			}
-		);
+		// pdfMerge(
+		// 	['./output_1.pdf', './output_2.pdf'],
+		// 	path.join(__dirname, `./mergedFile.pdf`),
+		// 	async (err) => {
+		// 		if (err) return console.log(err);
+		// 		console.log('Successfully merged!');
+		// 	}
+		// );
 
-		console.log('PDF generated successfully');
+		const mergedPDFBuffer = await MergePDF(pdf1, pdf2);
+		if (mergedPDFBuffer) {
+			fs.writeFileSync('merged_output.pdf', mergedPDFBuffer);
+			console.log(mergedPDFBuffer, 'PDF merge complete!');
+			// Do whatever you need with the merged PDF buffer here
+		} else {
+			console.log('Failed to merge PDFs');
+		}
 		// await browser.close();
 	} catch (e) {
 		console.log(e);

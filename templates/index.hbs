@@ -2,7 +2,7 @@
 	<head>
 		<meta charset='UTF-8' />
 		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
-		<title>Invoice</title>
+		<title>PDF Invoice - 1</title>
 		<style>
 			@page :first { size: A4 portrait; margin-bottom: 0; line-height: 1.5; } /*
 			Landscape orientation for the rest of the pages */ @page { size: A4
@@ -207,29 +207,18 @@
 			9pt; } #l26> li:first-child>*:first-child:before {counter-increment: j2 0;
 			} table, tbody {vertical-align: top; overflow: visible; }
 		</style>
-		<script>
-			// Override the function responsible for displaying page numbers
-			(function() { // Save a reference to the original function var
-			originalGetFormattedTimestamp =
-			window.PerformancePanel.prototype.getFormattedTimestamp; // Override the
-			function to start page numbering from 0
-			window.PerformancePanel.prototype.getFormattedTimestamp =
-			function(timestamp) { // Call the original function and subtract 1 from
-			the page number return originalGetFormattedTimestamp.call(this, timestamp
-			- 1); }; })();
-		</script>
 	</head>
 	<body>
 		<div class='page'>
-			<div style='margin-top:-25px;' class='invoice'>
+			<div style='margin-top:1rem;' class='invoice'>
 				<div class='invoice-header margin-bottom'>
 					<div style='line-height: 1.04;' class='invoice-header-left'>
 						<div class='h2-prev'>{{place_of_business.name}}</div>
 						<div
-							style='width: 80%; font-size: 11pt;'
+							style='width: 85%; font-size: 11pt;'
 						>{{place_of_business.address.street}}{{place_of_business.address.street_2}}{{place_of_business.address.street_3}}</div>
 						<div
-							style='width: 80%; font-size: 11pt;'
+							style='width: 85%; font-size: 11pt;'
 						>{{place_of_business.address.street_4}}{{place_of_business.address.street_5}}</div>
 						<div style='font-size: 11pt;'>{{place_of_business.address.city}}
 							-
@@ -241,9 +230,9 @@
 					<div class='invoice-header-right'>
 						<img
 							style=' margin-right: 75px;'
-							height='50px'
-							width='61px'
-							src='https://logodix.com/logo/974856.jpg'
+							height='80px'
+							width='75px'
+							src={{pdfLogo}}
 							alt='Reliance Retail Limited'
 						/>
 					</div>
@@ -267,9 +256,8 @@
 						<div style='font-size: 11pt; line-height: 1.5'>Vendor Code :
 							{{supplier_details.code}}</div>
 						<div style='font-size: 11pt;'>{{supplier_details.name}}</div>
-						<br /><br />
 						<div
-							style='font-size: 11pt;'
+							style='padding-top: 1rem; font-size: 11pt;'
 						>{{supplier_details.address.address}}</div>
 						{{!-- <div style="font-size: 11pt;">{{supplier_details.address.address_line2}}</div> --}}
 						<div style='font-size: 11pt;'>
@@ -291,6 +279,9 @@
 						<div style='font-size: 11pt;'>GSTIN No:
 							{{supplier_details.gst_no}}</div>
 						<div style='font-size: 11pt;'>Attention : </div>
+						{{#if supplier_details.is_msme}}
+							<div style='font-size: 11pt;'>MSME : Micro Enterprise </div>
+						{{/if}}
 					</div>
 					<div
 						style='line-height: 1.2; padding-right: 0;'
@@ -301,8 +292,22 @@
 							Site :
 							{{site_details.code}}</div>
 						<div style='font-size: 11pt;'>PO Date : {{po_date}}</div>
+						<div
+							class='bold'
+							style='padding-top: 1rem; font-size: 11pt;'
+						>Priority :
+							{{priority}}
+						</div>
 					</div>
 					<div class='invoice-body item3'>
+						<div style='font-size: 11pt; line-height: 1.5'>Season :
+							{{season.season}}</div>
+						<div style='font-size: 11pt;'>Season Year :
+							{{season_year}}</div>
+						{{#if rfid}}
+							<div class='bold' style='font-size: 11pt; padding-top: 1rem'>RFID
+								PACK</div>
+						{{/if}}
 					</div>
 					<div class='invoice-body item4'>
 						<div
@@ -358,7 +363,7 @@
 							</span>{{site_details.contact.contact_email}}</div>
 					</div>
 					<div
-						style='line-height: 1.68;'
+						style='line-height: 1.68; padding: 0 0 0 1rem;'
 						class='invoice-body item2'
 						style='padding: 0 0 1rem 0.5rem;'
 					>
@@ -432,7 +437,7 @@
 							>
 								<div style='display: flex; justify-content: space-between;'>
 									<span
-										style='text-align:left; font-size: 11pt; font-weight: bold; width: 125pt;'
+										style=' font-size: 11pt; font-weight: bold; width: 125pt;'
 									>Total Order Value :</span>
 									<span
 										style='font-size: 11pt; font-weight: bold; align-self: center;'
@@ -446,23 +451,25 @@
 						</div>
 					</div>
 
-					<div class='invoice-body'>
+					<div style='padding-bottom:0' class='invoice-body'>
 						<div
 							style='line-height: 1.5; font-size: 12pt;'
 							class='h2-prev'
-						>DELIVERY DATE : {{delivery_date}} </div>
-						<div style='line-height: 1.5; font-size: 10pt;'>Payment Terms : See
-							Page Inside</div>
+						>DELIVERY DATE :
+							{{delivery_date}}
+						</div>
+						<div style='font-size: 10pt;'>Payment Terms : See Page Inside</div>
 					</div>
 					<div style='line-height: 1.20;' class='invoice-body'>
 						<div
 							style='line-height: 1.5; font-size: 12pt;'
 							class='h2-prev'
-						>Delivery Term : {{delivery_terms}} </div>
+						>Delivery Term :
+							{{delivery_terms}}
+						</div>
 					</div>
 
-					<div class='invoice-body item8'>
-						<p></p>
+					<div style='padding:1rem;' class='invoice-body item8'>
 					</div>
 
 					<div
@@ -498,11 +505,11 @@
 								class='invoice-body item11 buyer-details'
 							>
 								<br />
-								<div>SELLER&#39;S Acceptence</div>
+								<div>SELLER&#39;S Acceptance</div>
 								<div
 									style='display: flex; justify-content: space-between; margin-top:25px'
 								>
-									<span>Signautre</span>
+									<span>Signature</span>
 									<span>Title</span>
 									<span>Date</span>
 								</div>
@@ -527,5 +534,6 @@
 				</div>
 			</div>
 		</div>
+
 	</body>
 </html>
