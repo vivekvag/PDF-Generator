@@ -8,8 +8,21 @@ const { generateQrCode, generateBarCode } = require('./generator');
 const pdfMerge = require('easy-pdf-merge');
 const { PDFDocument } = require('pdf-lib');
 
-hbs.registerHelper('inc', function (value, options) {
-	return parseInt(value) + 1;
+// hbs.registerHelper('inc', function (value, options) {
+// 	return parseInt(value) + 1;
+// });
+
+hbs.registerHelper('getDeliveryDate', function (options) {
+	return options.data.root.delivery_date; // Access delivery_date from root context
+});
+
+hbs.registerHelper('getSiteCode', function (options) {
+	return options.data.root.site_details.code; // Access delivery_date from root context
+});
+
+hbs.registerHelper('getGSTFlag', function (options) {
+	console.log(options.data.root.gst.is_igst);
+	return options.data.root.gst.is_igst; // Access is_igst from root context
 });
 
 const src = `data:image/jpeg;base64,${fs
