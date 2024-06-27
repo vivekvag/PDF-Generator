@@ -275,8 +275,14 @@
 									<tr class='item'>
 										<td>{{this.sr_no}}</td>
 										<td>{{this.article_no}}<br />{{this.hsn_code}}</td>
-										<td>{{this.ean_no}}<br />{{this.vendor_article_no}}<br
-											/>{{this.vendor_item_no}}</td>
+										<td>
+											{{this.ean_no}}<br />
+											{{#if (eq this.vendor_article_no this.vendor_item_no)}}
+												{{this.vendor_article_no}}
+											{{else}}
+												{{this.vendor_article_no}}<br />{{this.vendor_item_no}}
+											{{/if}}
+										</td>
 										<td>{{this.material_description}}<br
 											/>{{getDeliveryDate}}<br />{{getSiteCode}}</td>
 										<td style='text-align: right;'>{{this.quantity}}</td>

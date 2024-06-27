@@ -12,6 +12,10 @@ const { PDFDocument } = require('pdf-lib');
 // 	return parseInt(value) + 1;
 // });
 
+hbs.registerHelper('eq', function (a, b) {
+	return a === b;
+});
+
 hbs.registerHelper('getDeliveryDate', function (options) {
 	return options.data.root.delivery_date; // Access delivery_date from root context
 });
