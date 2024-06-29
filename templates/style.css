@@ -1,0 +1,80 @@
+/* Paged.js fragmentation rendering on screen */
+
+/* print css that's being rendered on screen */
+
+@page {
+	size: 17cm 24cm;
+	margin: 30mm 25mm;
+	/*    top margins */
+	@top-left-corner {
+		content: 'Page ' counter(page) ' of ' counter(pages);
+		/*         padding: 3ch; */
+	}
+	@top-left {
+		content: 'top left';
+		padding: 3ch;
+	}
+	@top-center {
+		content: 'top center';
+		padding: 3ch;
+	}
+	@top-right {
+		content: 'top right';
+		padding: 3ch;
+	}
+	@top-right-corner {
+		content: 'top right corner';
+		padding: 3ch;
+	}
+	/*  Right side of the page  */
+	@right-top {
+		content: 'right top';
+		padding: 3ch;
+	}
+	@right-middle {
+		content: 'right middle';
+		padding: 3ch;
+	}
+	@right-bottom {
+		content: 'right bottom';
+		padding: 3ch;
+	}
+	/*   bottom side of the page */
+	@bottom-left-corner {
+		content: 'bottom left corner';
+		padding: 3ch;
+	}
+	@bottom-left {
+		content: 'bottom left';
+		padding: 3ch;
+	}
+	@bottom-center {
+		content: 'bottom center';
+		padding: 3ch;
+	}
+	@bottom-right {
+		content: 'bottom right';
+		padding: 3ch;
+	}
+	@bottom-right-corner {
+		content: 'bottom right corner';
+		padding: 3ch;
+	}
+	/*   left side of the page */
+	@left-top {
+		content: 'left top';
+		padding: 3ch;
+	}
+	@left-middle {
+		content: 'left middle';
+		padding: 3ch;
+	}
+	@left-bottom {
+		content: 'left bottom';
+		padding: 3ch;
+	}
+}
+
+/* Everything below is related to the styles of the book and the way the pages are shown on the screen*/
+
+/* variable used for the boook */
