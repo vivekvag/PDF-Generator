@@ -30,43 +30,43 @@ const styleContent = `
 			</style>
 		`;
 
-function groupBySubtotalQuantity(poItems) {
-	const groupedPayload = {};
-	poItems.forEach((item) => {
-		const groupKey = item.article_no.toString().substring(0, 9); // Get the first 4 characters of article_no
-		const totalQuantity = parseFloat(item.quantity); // Convert quantity to a floating-point number
-		if (!groupedPayload[groupKey]) {
-			groupedPayload[groupKey] = {
-				total_quantity: 0, // Initialize total quantity to 0
-				items: [],
-			};
-		}
-		groupedPayload[groupKey].items.push(item);
-		groupedPayload[groupKey].total_quantity += totalQuantity; // Add quantity to total quantity
-	});
+// function groupBySubtotalQuantity(poItems) {
+// 	const groupedPayload = {};
+// 	poItems.forEach((item) => {
+// 		const groupKey = item.article_no.toString().substring(0, 9); // Get the first 4 characters of article_no
+// 		const totalQuantity = parseFloat(item.quantity); // Convert quantity to a floating-point number
+// 		if (!groupedPayload[groupKey]) {
+// 			groupedPayload[groupKey] = {
+// 				total_quantity: 0, // Initialize total quantity to 0
+// 				items: [],
+// 			};
+// 		}
+// 		groupedPayload[groupKey].items.push(item);
+// 		groupedPayload[groupKey].total_quantity += totalQuantity; // Add quantity to total quantity
+// 	});
 
-	// Format total_quantity to have up to 3 decimal places and convert to string
-	Object.keys(groupedPayload).forEach((key) => {
-		groupedPayload[key].total_quantity = parseFloat(
-			groupedPayload[key].total_quantity.toFixed(3)
-		).toFixed(3);
-	});
+// 	// Format total_quantity to have up to 3 decimal places and convert to string
+// 	Object.keys(groupedPayload).forEach((key) => {
+// 		groupedPayload[key].total_quantity = parseFloat(
+// 			groupedPayload[key].total_quantity.toFixed(3)
+// 		).toFixed(3);
+// 	});
 
-	// Sort items within each group based on the last number of the material description
-	Object.keys(groupedPayload).forEach((key) => {
-		groupedPayload[key].items.sort((a, b) => {
-			const getLastNumber = (str) => parseInt(str.match(/\d+$/)[0]); // Extract last number from string
-			return (
-				getLastNumber(a.material_description) -
-				getLastNumber(b.material_description)
-			);
-		});
-	});
+// 	// Sort items within each group based on the last number of the material description
+// 	Object.keys(groupedPayload).forEach((key) => {
+// 		groupedPayload[key].items.sort((a, b) => {
+// 			const getLastNumber = (str) => parseInt(str.match(/\d+$/)[0]); // Extract last number from string
+// 			return (
+// 				getLastNumber(a.material_description) -
+// 				getLastNumber(b.material_description)
+// 			);
+// 		});
+// 	});
 
-	const result = Object.keys(groupedPayload).map((key) => groupedPayload[key]);
+// 	const result = Object.keys(groupedPayload).map((key) => groupedPayload[key]);
 
-	return { po_item: result };
-}
+// 	return { po_item: result };
+// }
 
 // Function to generate PDF
 const generatePDF = async () => {
@@ -78,13 +78,21 @@ const generatePDF = async () => {
 		const page = await browser.newPage();
 
 		const payloadJSON = data;
-		const groupedPayload = groupBySubtotalQuantity(payloadJSON.po_item);
-		payloadJSON.po_item = groupedPayload.po_item;
 
-		// Compile template with user and seller information
+		const barcodeMarkup = await generateBarCode({
+			value: payloadJSON.barcode_number,
+		});
+
+		const qrCodeMarkup = await generateQrCode({
+			qr_data: payloadJSON.generated_by,
+		});
+
+		payloadJSON.barcodeMarkup = barcodeMarkup;
+		payloadJSON.qrCodeMarkup = qrCodeMarkup;
+
+		console.log({ qrCodeMarkup });
+
 		const content = await compile('index', payloadJSON);
-
-		const barcodeMarkup = await generateBarCode({ value: '123456789' });
 
 		// Add the formatted text and barcode to your content
 		const modifiedContent = content;
