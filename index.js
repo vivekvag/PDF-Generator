@@ -7,14 +7,14 @@ const ThermalPrinterHelper = require('./ThermalPrinterHelper');
 const { generateQrCode, generateBarCode } = require('./generator');
 
 hbs.registerHelper('inc', function (value, options) {
-	return parseInt(value) + 1;
+  return parseInt(value) + 1;
 });
 
 // Function to compile Handlebars template
 const compile = async function (template, data) {
-	const filePath = path.join(__dirname, 'templates', `${template}.hbs`);
-	const templateSource = await fs.promises.readFile(filePath, 'utf-8');
-	return hbs.compile(templateSource)(data);
+  const filePath = path.join(__dirname, 'templates', `${template}.hbs`);
+  const templateSource = await fs.promises.readFile(filePath, 'utf-8');
+  return hbs.compile(templateSource)(data);
 };
 
 const styleContent = `
@@ -30,93 +30,55 @@ const styleContent = `
 			</style>
 		`;
 
-// function groupBySubtotalQuantity(poItems) {
-// 	const groupedPayload = {};
-// 	poItems.forEach((item) => {
-// 		const groupKey = item.article_no.toString().substring(0, 9); // Get the first 4 characters of article_no
-// 		const totalQuantity = parseFloat(item.quantity); // Convert quantity to a floating-point number
-// 		if (!groupedPayload[groupKey]) {
-// 			groupedPayload[groupKey] = {
-// 				total_quantity: 0, // Initialize total quantity to 0
-// 				items: [],
-// 			};
-// 		}
-// 		groupedPayload[groupKey].items.push(item);
-// 		groupedPayload[groupKey].total_quantity += totalQuantity; // Add quantity to total quantity
-// 	});
-
-// 	// Format total_quantity to have up to 3 decimal places and convert to string
-// 	Object.keys(groupedPayload).forEach((key) => {
-// 		groupedPayload[key].total_quantity = parseFloat(
-// 			groupedPayload[key].total_quantity.toFixed(3)
-// 		).toFixed(3);
-// 	});
-
-// 	// Sort items within each group based on the last number of the material description
-// 	Object.keys(groupedPayload).forEach((key) => {
-// 		groupedPayload[key].items.sort((a, b) => {
-// 			const getLastNumber = (str) => parseInt(str.match(/\d+$/)[0]); // Extract last number from string
-// 			return (
-// 				getLastNumber(a.material_description) -
-// 				getLastNumber(b.material_description)
-// 			);
-// 		});
-// 	});
-
-// 	const result = Object.keys(groupedPayload).map((key) => groupedPayload[key]);
-
-// 	return { po_item: result };
-// }
-
 // Function to generate PDF
 const generatePDF = async () => {
-	try {
-		const browser = await puppeteer.launch({
-			args: ['--no-sandbox'],
-			devtools: true,
-		});
-		const page = await browser.newPage();
+  try {
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox'],
+      devtools: true
+    });
+    const page = await browser.newPage();
 
-		const payloadJSON = data;
+    const payloadJSON = data;
 
-		const barcodeMarkup = await generateBarCode({
-			value: payloadJSON.barcode_number,
-		});
+    const barcodeMarkup = await generateBarCode({
+      value: payloadJSON.barcode_number
+    });
 
-		const qrCodeMarkup = await generateQrCode({
-			qr_data: payloadJSON.generated_by,
-		});
+    const qrCodeMarkup = await generateQrCode({
+      qr_data: payloadJSON.irn
+    });
 
-		payloadJSON.barcodeMarkup = barcodeMarkup;
-		payloadJSON.qrCodeMarkup = qrCodeMarkup;
+    payloadJSON.barcodeMarkup = barcodeMarkup;
+    payloadJSON.qrCodeMarkup = qrCodeMarkup;
 
-		console.log({ qrCodeMarkup });
+    console.log({ qrCodeMarkup });
 
-		const content = await compile('index', payloadJSON);
+    const content = await compile('index', payloadJSON);
 
-		// Add the formatted text and barcode to your content
-		const modifiedContent = content;
+    // Add the formatted text and barcode to your content
+    const modifiedContent = content;
 
-		await page.setContent(modifiedContent);
+    await page.setContent(modifiedContent);
 
-		await page.addStyleTag({
-			content: `
+    await page.addStyleTag({
+      content: `
 				body { margin-top: 1cm; }
 				@page:first { margin-top: 0; }
-			`,
-		});
+			`
+    });
 
-		// Generate PDF for each page
-		await page.pdf({
-			path: 'output.pdf',
-			format: 'A4',
-			printBackground: true,
-			preferCSSPageSize: true,
-			displayHeaderFooter: true,
-			margin: {
-				top: '100px',
-			},
-			headerTemplate: `
+    // Generate PDF for each page
+    await page.pdf({
+      path: 'output.pdf',
+      format: 'A4',
+      printBackground: true,
+      preferCSSPageSize: true,
+      displayHeaderFooter: true,
+      margin: {
+        top: '100px'
+      },
+      headerTemplate: `
                 ${styleContent}
                 <div class='invoice-code'>
                     <div style='width:40%; font-size: 10px;'></div>
@@ -128,19 +90,19 @@ const generatePDF = async () => {
                     </div>
                 </div>
             `,
-			footerTemplate: `
+      footerTemplate: `
 				${styleContent}
 				<div class='invoice-code'>
 				<div style='width:40%; font-size: 12px;'></div>
 				</div>
-			`,
-		});
+			`
+    });
 
-		console.log('PDF generated successfully');
-		// await browser.close();
-	} catch (e) {
-		console.log(e);
-	}
+    console.log('PDF generated successfully');
+    // await browser.close();
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // Call the function to generate PDF

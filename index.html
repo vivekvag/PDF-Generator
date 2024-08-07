@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Invoice Layout</title>
+		<style>
+			.container {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 10px;
+				padding: 20px;
+				border: 1px solid #000;
+			}
+
+			.customer-details,
+			.invoice-details {
+				border: 1px solid #000;
+				padding: 10px;
+			}
+
+			.customer-details h3,
+			.invoice-details h3 {
+				margin-top: 0;
+			}
+
+			.invoice-details {
+				display: grid;
+				grid-template-rows: repeat(6, auto);
+			}
+
+			.customer-details {
+				display: grid;
+				grid-template-rows: repeat(3, auto);
+			}
+
+			.billing-address,
+			.shipping-address {
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="customer-details">
+				<h3>Customer Details:</h3>
+				<div>
+					<strong>Yogesh Chander Deveshwar</strong><br />
+					GSTIN: 27AABCR1718E1ZP
+				</div>
+				<div class="billing-address">
+					<strong>Billing address:</strong><br />
+					Reliance Corporate Park, Gr, RCP<br />
+					5 TTC Industrial Area, Ghansoli, Thane Belapur Road, Navi Mumbai<br />
+					Thane, MAHARASHTRA, 400701
+				</div>
+				<div class="shipping-address">
+					<strong>Shipping address:</strong><br />
+					Reliance Corporate Park, Gr, RCP<br />
+					5 TTC Industrial Area, Ghansoli, Thane Belapur Road, Navi Mumbai<br />
+					Thane, MAHARASHTRA, 400701<br />
+					Ph: 9999999999
+				</div>
+			</div>
+
+			<div class="invoice-details">
+				<div>
+					<strong>Invoice #:</strong><br />
+					ITC/23-24/89771
+				</div>
+				<div>
+					<strong>Date:</strong><br />
+					27 Sep 2023
+				</div>
+				<div>
+					<strong>Place of Supply:</strong><br />
+					27-MAHARASHTRA
+				</div>
+				<div>
+					<strong>Due Date:</strong><br />
+					27 Sep 2023
+				</div>
+				<div>
+					<strong>Eway Bill #:</strong><br />
+					371002986176
+				</div>
+				<div>
+					<strong>Vehicle Number:</strong><br />
+					MH052627
+				</div>
+				<div>
+					<strong>Dispatch From:</strong><br />
+					ITC LIMITED<br />
+					No. 18, ITC Limited<br />
+					Banaswadi Road, Pulikeshi Nagar<br />
+					Bengaluru Urban, KARNATAKA, 560005
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
