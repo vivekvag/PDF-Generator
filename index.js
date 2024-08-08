@@ -10,6 +10,9 @@ hbs.registerHelper('inc', function (value, options) {
   return parseInt(value) + 1;
 });
 
+const imagePath = path.join(__dirname, 'templates', 'images', 'reliance-icon.jpg');
+const pdfLogo = `data:image/jpeg;base64,${fs.readFileSync(imagePath).toString('base64')}`;
+
 // Function to compile Handlebars template
 const compile = async function (template, data) {
   const filePath = path.join(__dirname, 'templates', `${template}.hbs`);
@@ -51,8 +54,9 @@ const generatePDF = async () => {
 
     payloadJSON.barcodeMarkup = barcodeMarkup;
     payloadJSON.qrCodeMarkup = qrCodeMarkup;
+    payloadJSON.pdfLogo = pdfLogo;
 
-    console.log({ qrCodeMarkup });
+    // console.log({ pdfLogo });
 
     const content = await compile('index', payloadJSON);
 
