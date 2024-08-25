@@ -2,7 +2,7 @@
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Invoice</title>
+    <title>Scan Pack Invoice</title>
     <style>
       @page { size: portrait; margin-bottom: 0; line-height: 1.5; } *, *::before, *::after {
       box-sizing: border-box; font-family: Helvetica, sans-serif; } body { font-size: 9pt;
@@ -32,13 +32,13 @@
     </style>
   </head>
   <body>
-    <div class='page'>
+    <div style='margin-top:2rem;' class='page'>
       <div style='min-height: 85vh;' class='page-height'>
         <div class='invoice'>
           <div class='invoice-header margin-bottom'>
             <div style='line-height: 1.04;' class='invoice-header-left'>
               <div style=' display: flex;'>
-                <div>
+                {{!-- <div>
                   <img
                     style='margin-left: -1rem;'
                     height='90px'
@@ -46,20 +46,21 @@
                     src={{pdfLogo}}
                     alt='Reliance Retail Limited'
                   />
-                </div>
-                <div style='margin-top: 1rem; margin-left: -0.5rem'>
-                  <div style='font-size: 24px' class='h2-prev'>{{recpient.name}}</div>
+                </div> --}}
+                {{!-- removing this sytle for now -> style='margin-top: 1rem; margin-left: -0.5rem' --}}
+                <div style="width: 100%;">
+                  <div style='font-size: 22px line-height: 1.2' class='h2-prev'>{{supplier.name}}</div>
 
                   <div style='font-size: 14px; line-height: 1.2'>
-                    {{recpient.address_line_1}}
+                    {{supplier.address_line_1}}
                   </div>
                   <div style='font-size: 14px; line-height: 1.2'>
-                    {{recpient.address_line_2}}
-                    {{recpient.address_line_3}}
+                    {{supplier.address_line_2}}
+                    {{supplier.address_line_3}}
                   </div>
                   <div class='bold' style='font-size: 14px; line-height: 1.2'>
                     GSTIN:
-                    {{recpient.gstin}}
+                    {{supplier.gstin}}
                   </div>
                   <br />
                   <div style='font-size: 12px; line-height: 1.2'>IRN :
@@ -77,27 +78,27 @@
                 <div style='font-size: 14px; line-height: 1.2;' class='bold'>TAX INVOICE</div>
                 <div style='font-size: 12px; line-height: 1.2'>ORIGINAL FOR RECEIPIENT</div>
               </div>
-              <img style='margin-left: 3rem;' src={{qrCodeMarkup}} alt='Reliance Retail Limited' />
+              <img style='max-height: 200px;' src={{qrCodeMarkup}} alt='Reliance Retail Limited' />
             </div>
           </div>
 
           <div style='line-height: 1.04; gap: 1px;' class='invoice-body-1'>
             <div style='line-height: 1.2;' class='invoice-body item1'>
               <div style='font-size: 14px; line-height: 1.2'>
-                <span class='bold'> Customer Details: </span>
-                <div class='bold' style='font-size: 12px;'>
-                  {{supplier.name}}
+                {{!-- <span class='bold'> Customer Details: </span> --}}
+                <div class='bold' >
+                  {{recipient.name}}
                 </div>
                 <div class='bold' style='font-size: 12px;'>
                   GSTIN:
-                  {{supplier.gstin}}
+                  {{recipient.gstin}}
                 </div>
                 <br />
                 <span class='bold'> Billing Address: </span>
                 <div style='font-size: 12px;'>
-                  {{supplier.address_line_1}}
-                  {{supplier.address_line_2}}
-                  {{supplier.address_line_3}}
+                  {{recipient.address_line_1}}
+                  {{recipient.address_line_2}}
+                  {{recipient.address_line_3}}
                 </div>
                 <br />
                 <span class='bold'> Shipping Address: </span>
@@ -112,7 +113,7 @@
             <div style='line-height: 1.2; font-size: 14px;' class='invoice-body item2'>
               <span class='bold'> Invoice #: </span>
               <div style='font-size: 12px'>
-                {{!-- {{ack_no}} --}}
+                {{document_number}}
               </div>
             </div>
             <div style='line-height: 1.2; font-size: 14px;' class='invoice-body item3'>
@@ -144,9 +145,9 @@
             </div>
 
             <div style='line-height: 1.2; font-size: 14px;' class='invoice-body item3'>
-              <span class='bold'> Vehicle Number : </span>
+              <span class='bold'> PO Number : </span>
               <div style='font-size: 12px'>
-                {{!-- {{ewaybill_number}} --}}
+                {{po_number}}
               </div>
             </div>
 
@@ -170,13 +171,25 @@
                 <th>Item Description</th>
                 {{! <th>HSN Code</th>/ }}
                 <th>Quantity</th>
-                <th>Unit</th>
+                {{! <th>Unit</th> }}
                 <th>Unit Price</th>
                 <th>Taxable Amount</th>
-                <th><div>CGST (%)</div>
-                  <div>SGST (%)</div>
-                  <div>CESS (%)</div>
-                </th>
+                {{#if is_igst}}
+                  <th>
+                    <span>IGST (%)</span>
+                    <span>CESS (%)</span>
+                  </th>
+                  <th>
+                    <span>IGST</span>
+                    <span>CESS</span>
+                  </th>
+                {{else}}
+                  <th>
+                    <span>CGST </span>
+                    <span>SGST </span>
+                    <span>CESS </span>
+                  </th>
+                {{/if}}
                 <th>Other Charges</th>
                 <th>Total</th>
               </tr>
@@ -193,12 +206,32 @@
                   </td>
                   {{!-- <td>{{this.hsn_code}}</td> --}}
                   <td>{{this.quantity}}</td>
-                  <td>{{this.unit}}</td>
-                  <td>{{this.discount}}</td>
-                  <td>{{this.taxable_amount}}</td>
-                  <td>{{this.gst}} + {{this.cess}} + {{this.state_cess}} </td>
-                  <td>{{this.other_charges}}</td>
-                  <td>{{this.total}}</td>
+                  {{!-- <td>{{this.unit}}</td> --}}
+                  <td>&#8377;{{this.discount}}</td>
+                  <td>&#8377;{{this.taxable_amount}}</td>
+                    {{#if ../is_igst}}
+                      <td>
+                        {{this.igst}}<br/>
+                        {{this.cess}}<br/>
+                      </td>
+                      <td>
+                        {{this.igst_amount}}<br/>
+                        {{this.cess_amount}}<br/>
+                      </td>
+                    {{else}}
+                      <td>
+                        {{this.cgst}}<br/>
+                        {{this.sgst}}<br/>
+                        {{this.cess}}<br/>
+                      </td>
+                      <td>
+                        {{this.cgst_amount}}<br/>
+                        {{this.sgst_amount}}<br/>
+                        {{this.cess_amount}}<br/>
+                      </td>
+                    {{/if}}
+                  <td>&#8377;{{this.other_charges}}</td>
+                  <td>&#8377;{{this.total}}</td>
                 </tr>
               {{/each}}
             </tbody>
@@ -218,7 +251,10 @@
 
               <div style='display: flex; justify-content: space-between;'>
                 <span class='bold'>Taxable Amount</span>
-                <span style='text-align: right;' class='bold'>{{item_details.taxable_amount}}</span>
+                <span
+                  style='text-align: right;'
+                  class='bold'
+                >&#8377;{{item_details.taxable_amount}}</span>
               </div>
 
             </div>
@@ -227,17 +263,26 @@
 
               <div style='display: flex; justify-content: space-between;'>
                 <span class='bold'>CGST</span>
-                <span style='text-align: right;' class='bold'>{{item_details.cgst_amount}}</span>
+                <span
+                  style='text-align: right;'
+                  class='bold'
+                >&#8377;{{item_details.cgst_amount}}</span>
               </div>
 
               <div style='display: flex; justify-content: space-between;'>
                 <span class='bold'>SGST</span>
-                <span style='text-align: right;' class='bold'>{{item_details.sgst_amount}}</span>
+                <span
+                  style='text-align: right;'
+                  class='bold'
+                >&#8377;{{item_details.sgst_amount}}</span>
               </div>
 
               <div style='display: flex; justify-content: space-between;'>
                 <span class='bold'>IGST</span>
-                <span style='text-align: right;' class='bold'>{{item_details.igst_amount}}</span>
+                <span
+                  style='text-align: right;'
+                  class='bold'
+                >&#8377;{{item_details.igst_amount}}</span>
               </div>
             </div>
 
@@ -250,7 +295,7 @@
                 <span
                   style='text-align: right;'
                   class='bold'
-                >{{item_details.total_invioce_amount}}</span>
+                >&#8377;{{item_details.total_invoice_amount}}</span>
               </div>
             </div>
           </div>
@@ -278,11 +323,11 @@
             <br />
             <br />
             <div style='font-size: 12px; line-height: 1.5'>
-              Digitally Signed by NIC-IRP
-              <div style='font-size: 12px; line-height: 1.5'>
+              {{!-- Digitally Signed by NIC-IRP --}}
+              {{!-- <div style='font-size: 12px; line-height: 1.5'>
                 on
                 {{print_date}}
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>

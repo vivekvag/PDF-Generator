@@ -1,96 +1,76 @@
 {
-  "irn": "bd76c39d3f5eba176e61323136c3adefbb101905d17d76e342592976527157",
-  "ack_no": "152418436494216",
-  "ack_date": "28-06-2024 18:43:00",
+  "irn": "123456789",
+  "signed_qr_code": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkI4RDYzRUNCNThFQTVFNkY0QUFDM0Q1MjQ1NDNCMjI0NjY2OUIwRjgiLCJ4NXQiOiJ1TlkteTFqcVhtOUtyRDFTUlVPeUpHWnBzUGciLCJ0eXAiOiJKV1QifQ.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjI3QUFDQ0QyMzI1RzFaMVwiLFwiQnV5ZXJHc3RpblwiOlwiMjlBQUJDUjE3MThFMVpMXCIsXCJEb2NOb1wiOlwiUklMMzBUSU4wMDAwMDIyNFwiLFwiRG9jVHlwXCI6XCJJTlZcIixcIkRvY0R0XCI6XCIxOC8wOC8yMDI0XCIsXCJUb3RJbnZWYWxcIjo4MTEyLjQyLFwiSXRlbUNudFwiOjYsXCJNYWluSHNuQ29kZVwiOlwiNjIxMTQyMTBcIixcIklyblwiOlwiZDU3MmMwMTdkZGRmZDJiZmQ3MjRjZWJkYjA1NDQxOWRlNmM4OWZmMjZmZTdhOGNlZjI4MWY3ZmNhY2QwMTg0ZlwiLFwiSXJuRHRcIjpcIjIwMjQtMDgtMjAgMTk6NTc6MDBcIn0iLCJpc3MiOiJOSUMifQ.CUGJ7CnGV4FUtenocRKxAxRbFAmvfJ0K_mtuFoNfUMsFIfRo8o4uEKyFaPrAr08Ntz-QjptkK9EpesEM56pqJJFxs04vswizG8KbXj-L6gvt_XS6gN2S5w8xMLEXatqOBT6Z7ANC0rlso7lKNkxqPR2bVIGL2-yBhoZAZgQxRZBh7bMQQIkfFAX0u_JwtTlseWP-WPQ6UWzIQsDEOS7hPiiGVmOdYZwNFKvWBQAeRkI7XSFS3Y_JiiKKNj1fpvO6H9OZGIEMoCon7LI5-pP2iTrW0wyc28zYyVPK9uqFJy59xiCSsCvqlyMlQYKTLD3U9Oc_HgStBAK6lDtxXo0cyA",
+  "ack_no": "12345678",
+  "ack_date": "12345678",
   "supply_type_code": "B2B",
-  "document_number": "S1146/24-25",
-  "place_of_supply": "KARNATAKA",
-  "document_type": "Tax Involce",
-  "document_date": "25-06-2024",
+  "document_number": "RIL10TIN00000224",
+  "place_of_supply": "Haryana",
+  "document_type": "Tax Invoice",
+  "document_date": "20 Aug, 2024",
   "supplier": {
-    "gstin": "33AACCG8906GIZO",
-    "name": "GAINUP INDUSTRIES INDIA PRIVATE LIMITED",
-    "address_line_1": "13/341 DINDIGUL-BATLAGUNDU",
-    "address_line_2": "HIGHWAY OTTUPATTI",
-    "address_line_3": "624708 TAMIL NADU"
+    "gstin": "07ALAPK8403E1ZH",
+    "name": "DIAMOND FOOTCARE DIAMOND FOOTCARE UDYOG PVT. LTD",
+    "address_line_1": "345Footwear Parksector 17",
+    "address_line_2": "Hsiidc Bahadurgarh",
+    "address_line_3": "Haryana-124507"
   },
   "dispatch": {
-    "name": "GAINUP INDUSTRIES INDIA PRIVATE LIMITED",
-    "address_line_1": "13/341 DINDIGUL-BATLAGUNDU",
-    "address_line_2": "HIGHWAY OTTUPATTI",
-    "address_line_3": "624708 TAMIL NADU"
+    "name": "DIAMOND FOOTCARE UDYOG PVT. LTD",
+    "address_line_1": "345Footwear Parksector 17",
+    "address_line_2": "Hsiidc Bahadurgarh",
+    "address_line_3": "Haryana-124507"
   },
-  "recpient": {
-    "gstin": "29AABCR1718E1ZL",
+  "recipient": {
+    "gstin": "06AABCR1718E1ZT",
     "name": "Reliance Retail Ltd",
-    "address_line_1": "Survey No.54/1, Nandihalli Village, 55th Km Stone NH-4,",
-    "address_line_2": "Ooridegree Hobli Taluk, TumKur - District,",
-    "address_line_3": "Tumkur 572101 KARNATAKA"
+    "address_line_1": " Unitech Commercial Tower-1, , Sector -45",
+    "address_line_2": "Gurugram, , Haryana, Gurugram",
+    "address_line_3": " Gurugram, Haryana"
   },
   "ship_to": {
-    "gstin": "29AABCR1718EIZL",
-    "name": "Reliance Retail Ltd Bangalore",
-    "address_line_1": "Survey No.54/1, Nandihalli Village, 55th Km Stone NH-4,",
-    "address_line_2": "Ooridegree Hobli Taluk, TumKur - District,",
-    "address_line_3": "Tumkur 572101 KARNATAKA"
+    "gstin": "06AABCR1718E1ZT",
+    "name": "RRL Trends Testing Store 2",
+    "address_line_1": " Unitech Commercial Tower-1, , Sector -45",
+    "address_line_2": "Testing Street 4, Testing",
+    "address_line_3": "Street 5"
   },
+  "po_number": "2000004652",
+  "is_igst": true,
   "item_details": {
     "items": [
       {
-        "item_description": "KNITTED GARMENTS",
-        "hsn_code": "61112000",
-        "quantity": "264",
+        "item_description": "AVAASAMIXNMATCH_KURTA_420002104005_PEACH, PEACH, M",
+        "hsn_code": "55129120",
+        "quantity": "2",
+        "unit_price": "14.94",
         "unit": "PAC",
-        "discount": "189.17",
-        "taxable_amount": "49941.00",
-        "gst": "5",
-        "cess": "0",
-        "state_cess": "0",
+        "discount": "0",
+        "taxable_amount": "29.88",
+        "cgst": "0.00",
+        "sgst": "0.00",
+        "igst": "5.00",
+        "cess": "0.00",
+        "igst_amount": 100,
+        "cgst_amount": "0.00",
+        "sgst_amount": "0.00",
+        "cess_amount": "0.00",
         "other_charges": "0",
-        "total": "52438.00"
-      },
-      {
-        "item_description": "KNITTED GARMENTS",
-        "hsn_code": "61112000",
-        "quantity": "264",
-        "unit": "PAC",
-        "discount": "189.17",
-        "taxable_amount": "49941.00",
-        "gst": "5",
-        "cess": "0",
-        "state_cess": "0",
-        "other_charges": "0",
-        "total": "52438.00"
-      },
-      {
-        "item_description": "KNITTED GARMENTS",
-        "hsn_code": "61112000",
-        "quantity": "264",
-        "unit": "PAC",
-        "discount": "189.17",
-        "taxable_amount": "49941.00",
-        "gst": "5",
-        "cess": "0",
-        "state_cess": "0",
-        "other_charges": "0",
-        "total": "52438.00"
+        "total": "31.36",
+        "is_igst": true
       }
     ],
-    "taxable_amount": "49941.00",
-    "cgst_amount": "0",
-    "sgst_amount": "0",
-    "igst_amount": "2497.00",
-    "cess_amount": "0",
-    "state_cess": "0",
-    "discount": "0",
-    "other_charges": "0",
-    "round_off_amount": "0",
-    "total_invioce_amount": "52438.00"
+    "taxable_amount": "29.88",
+    "cgst_amount": "0.00",
+    "sgst_amount": "0.00",
+    "igst_amount": "1.48",
+    "cess_amount": "0.00",
+    "total_invoice_amount": "31.36"
   },
-  "ewaybill_number": "531670880350",
-  "ewaybill_date": "28-06-2024",
-  "valid_till_date": "01-07-2024",
-  "generated_by": "33AACCG8906G1ZQ",
-  "print_date": "28-06-2024 18:43:11",
-  "barcode_number": "152418436494216"
+  "ewaybill_number": "",
+  "ewaybill_date": "2024-08-20 21:13",
+  "valid_till_date": "2024-08-23 00:00",
+  "generated_by": "07ALAPK8403E1ZH",
+  "print_date": "20-08-2024 21:17:13",
+  "barcode_number": ""
 }

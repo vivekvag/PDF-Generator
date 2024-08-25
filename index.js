@@ -49,9 +49,9 @@ const generatePDF = async () => {
     });
 
     const qrCodeMarkup = await generateQrCode({
-      qr_data: payloadJSON.irn
+      qr_data: payloadJSON.signed_qr_code
     });
-
+    console.log(payloadJSON.signed_qr_code);
     payloadJSON.barcodeMarkup = barcodeMarkup;
     payloadJSON.qrCodeMarkup = qrCodeMarkup;
     payloadJSON.pdfLogo = pdfLogo;
@@ -65,12 +65,12 @@ const generatePDF = async () => {
 
     await page.setContent(modifiedContent);
 
-    await page.addStyleTag({
-      content: `
-				body { margin-top: 1cm; }
-				@page:first { margin-top: 0; }
-			`
-    });
+    // await page.addStyleTag({
+    //   content: `
+    // 		body { margin-top: 1cm; }
+    // 		@page:first { margin-top: 0; }
+    // 	`
+    // });
 
     // Generate PDF for each page
     await page.pdf({
@@ -78,28 +78,7 @@ const generatePDF = async () => {
       format: 'A4',
       printBackground: true,
       preferCSSPageSize: true,
-      displayHeaderFooter: true,
-      margin: {
-        top: '100px'
-      },
-      headerTemplate: `
-                ${styleContent}
-                <div class='invoice-code'>
-                    <div style='width:40%; font-size: 10px;'></div>
-                    <div style='width:30%; font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>PURCHASE ORDER</div>
-                    <div style='width:30%; font-size: 10px; line-height:1.2;'>
-                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Number<span style="font-weight: normal;"> : ${payloadJSON.po_number}</span></div>
-                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Po Date<span style="font-weight: normal;"> : ${payloadJSON.po_date}</span></div>
-                        <div style=' font-size: 10pt; font-family:Helvetica, sans-serif; font-style: normal; font-weight: bold;'>Page No <span style="font-weight: normal;">:</span> <span style="font-weight: normal;" class="pageNumber"> </span></div>
-                    </div>
-                </div>
-            `,
-      footerTemplate: `
-				${styleContent}
-				<div class='invoice-code'>
-				<div style='width:40%; font-size: 12px;'></div>
-				</div>
-			`
+      displayHeaderFooter: true
     });
 
     console.log('PDF generated successfully');
