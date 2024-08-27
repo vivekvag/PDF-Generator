@@ -44,6 +44,8 @@ const generatePDF = async () => {
 
     const payloadJSON = data;
 
+    console.log({ payloadJSON: JSON.stringify(payloadJSON) });
+
     const barcodeMarkup = await generateBarCode({
       value: payloadJSON.barcode_number
     });
