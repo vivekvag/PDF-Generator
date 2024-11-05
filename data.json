@@ -5,6 +5,8 @@
   "ack_date": "12345678",
   "supply_type_code": "B2B",
   "document_number": "RIL10TIN00000224",
+  "pos_state_code": 37,
+  "cin": "U01100MH1999PLC120563",
   "place_of_supply": "Haryana",
   "document_type": "Tax Invoice",
   "document_date": "20 Aug, 2024",

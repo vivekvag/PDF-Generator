@@ -107,6 +107,10 @@
                   {{ship_to.address_line_2}}
                   {{ship_to.address_line_3}}
                 </div>
+                <div class='bold' style='font-size: 12px; line-height: 1.2'>
+                    Store Code:
+                    {{supplier.gstin}}
+                </div>
               </div>
             </div>
 
@@ -126,6 +130,7 @@
             <div style='line-height: 1.2; font-size: 14px;' class='invoice-body item2'>
               <span class='bold'> Place of Supply : </span>
               <div style='font-size: 12px'>
+                <strong>{{pos_state_code}}</strong>,
                 {{place_of_supply}}
               </div>
             </div>
@@ -168,6 +173,7 @@
             <thead>
               <tr>
                 <th>#</th>
+                <th>Style</th>
                 <th>Item Description</th>
                 {{! <th>HSN Code</th>/ }}
                 <th>Quantity</th>
@@ -198,11 +204,13 @@
               {{#each item_details.items}}
                 <tr>
                   <td>{{inc @index}}</td>
+                  <td>Dummy</td>
                   <td>
                     <div style='padding-bottom: 5px;'>
                       {{this.item_description}}
                     </div>
                     <div> <span class='bold'>HSN Code: </span>{{this.hsn_code}} </div>
+                    <div> <span class='bold'>Article ID: </span>{{this.article_code}} </div>
                   </td>
                   {{!-- <td>{{this.hsn_code}}</td> --}}
                   <td>{{this.quantity}}</td>
@@ -330,6 +338,15 @@
               </div> --}}
             </div>
           </div>
+        </div>
+        <div style='line-height: 1.43' class='invoice-footer'>
+          <div class='bold' style='font-size:8pt; line-height:1.43;'>Registered Office :
+            {{supplier.address_line_1}}
+            {{supplier.address_line_2}}
+            {{supplier.address_line_3}}.</div>
+          <div class='bold' style='font-size:8pt; line-height:1.43;'>CIN No.
+            {{cin}}.</div>
+          <div class='bold' style='font-size:8pt; line-height:1.43;'>Disclaimer: An Electronic Document issued in accordance with the provisions of the Information Technology Act, 2000 (21 of 2000)</div>
         </div>
       </div>
     </div>

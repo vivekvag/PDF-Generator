@@ -76,7 +76,7 @@ const generatePDF = async () => {
 
     // Generate PDF for each page
     await page.pdf({
-      path: 'output.pdf',
+      path: 'output_1.pdf',
       format: 'A4',
       printBackground: true,
       preferCSSPageSize: true,
